@@ -1,33 +1,34 @@
-import React from 'react';
-import {RouteConfig} from 'react-router-config';
-import path from 'path';
-import nameof from 'ts-nameof.macro';
-import {GeneralActions} from 'config/general-actions';
+import { PRICE_LIST_ROUTE_PREFIX } from "config/route-consts";
+import path from "path";
+import React from "react";
+import { RouteConfig } from "react-router-config";
+import PriceListMasterView from "views/App/PriceListView/PriceListMasterView/PriceListMasterView";
 
-import {PROVINCE_ROUTE_PREFIX} from 'config/route-consts';
-import ProvinceMasterView from 'views/App/ProvinceView/ProvinceMasterView/ProvinceMasterView';
-import ProvinceDetailView from 'views/App/ProvinceView/ProvinceDetailView/ProvinceDetailView';
-
-const ProvinceView = React.lazy(() => import('views/App/ProvinceView/ProvinceView'));
+// const ProvinceView = React.lazy(() =>
+//   import("views/App/ProvinceView/ProvinceView"),
+// );
+const PriceListView = React.lazy(() =>
+  import("views/App/PriceListView/PriceListView"),
+);
 
 export const routes: RouteConfig[] = [
   {
-    path: PROVINCE_ROUTE_PREFIX,
-    component: ProvinceView,
+    path: PRICE_LIST_ROUTE_PREFIX,
+    component: PriceListView,
     routes: [
       {
-        path: path.join(PROVINCE_ROUTE_PREFIX),
-        component: ProvinceMasterView,
+        path: path.join(PRICE_LIST_ROUTE_PREFIX),
+        component: PriceListMasterView,
         exact: true,
       },
-      {
-        path: path.join(PROVINCE_ROUTE_PREFIX, nameof(GeneralActions.create)),
-        component: ProvinceDetailView,
-      },
-      {
-        path: path.join(PROVINCE_ROUTE_PREFIX, ':id'),
-        component: ProvinceDetailView,
-      },
+      // {
+      //   path: path.join(PROVINCE_ROUTE_PREFIX, nameof(GeneralActions.create)),
+      //   component: ProvinceDetailView,
+      // },
+      // {
+      //   path: path.join(PROVINCE_ROUTE_PREFIX, ":id"),
+      //   component: ProvinceDetailView,
+      // },
     ],
   },
 ];
