@@ -27,8 +27,8 @@ yarn-error.log*
 .vscode/
 
 #config, models, repos and views as we copy its from codeGen
-/src/config/*
-/src/models/*
-/src/repositories/*
-/src/views/*
+# /src/config/*
+# /src/models/*
+# /src/repositories/*
+# /src/views/*
 
