@@ -10,6 +10,8 @@ import nameof from "ts-nameof.macro";
 import { API_ROLE_PREFIX } from "config/api-consts";
 import { Role, RoleFilter } from 'models/Role';
 import { Status, StatusFilter } from 'models/Status';
+import { AppUserRoleMapping, AppUserRoleMappingFilter } from 'models/AppUserRoleMapping';
+import { AppUser, AppUserFilter } from 'models/AppUser';
 import { Permission, PermissionFilter } from 'models/Permission';
 import { Menu, MenuFilter } from 'models/Menu';
 
@@ -58,6 +60,14 @@ export class RoleRepository extends Repository {
         return this.httpObservable.post<Status[]>(kebabCase(nameof(this.singleListStatus)), new StatusFilter())
             .pipe(map((response: AxiosResponse<Status[]>) => response.data));
     };
+    public singleListAppUserRoleMapping = (appUserRoleMappingFilter: AppUserRoleMappingFilter): Observable<AppUserRoleMapping[]> => {
+        return this.httpObservable.post<AppUserRoleMapping[]>(kebabCase(nameof(this.singleListAppUserRoleMapping)), appUserRoleMappingFilter)
+            .pipe(map((response: AxiosResponse<AppUserRoleMapping[]>) => response.data));
+    };
+    public singleListAppUser = (appUserFilter: AppUserFilter): Observable<AppUser[]> => {
+        return this.httpObservable.post<AppUser[]>(kebabCase(nameof(this.singleListAppUser)), appUserFilter)
+            .pipe(map((response: AxiosResponse<AppUser[]>) => response.data));
+    };
     public singleListPermission = (permissionFilter: PermissionFilter): Observable<Permission[]> => {
         return this.httpObservable.post<Permission[]>(kebabCase(nameof(this.singleListPermission)), permissionFilter)
             .pipe(map((response: AxiosResponse<Permission[]>) => response.data));
@@ -65,6 +75,31 @@ export class RoleRepository extends Repository {
     public singleListMenu = (menuFilter: MenuFilter): Observable<Menu[]> => {
         return this.httpObservable.post<Menu[]>(kebabCase(nameof(this.singleListMenu)), menuFilter)
             .pipe(map((response: AxiosResponse<Menu[]>) => response.data));
+    };
+    
+    public countAppUser = (appUserFilter: AppUserFilter): Observable<number> => {
+        return this.httpObservable.post<number>(kebabCase(nameof(this.countAppUser)), appUserFilter)
+            .pipe(map((response: AxiosResponse<number>) => response.data));
+    };
+    public listAppUser = (appUserFilter: AppUserFilter): Observable<AppUser[]> => {
+        return this.httpObservable.post<AppUser[]>(kebabCase(nameof(this.listAppUser)), appUserFilter)
+            .pipe(map((response: AxiosResponse<AppUser[]>) => response.data));
+    };
+    public importAppUser = (file: File, name: string = nameof(file)): Observable<void> => {
+        const formData: FormData = new FormData();
+        formData.append(name, file);
+            return this.httpObservable.post<void>(kebabCase(nameof(this.importAppUser)), formData)
+                .pipe(map((response: AxiosResponse<void>) => response.data));
+    };
+    public exportAppUser = (filter: any): Observable<AxiosResponse<any>> => {
+        return this.httpObservable.post(kebabCase(nameof(this.exportAppUser)), filter, {
+          responseType: 'arraybuffer',
+        });
+    };
+    public exportTemplateAppUser = (): Observable<AxiosResponse<any>> => {
+        return this.httpObservable.post(kebabCase(nameof(this.exportTemplateAppUser)), {}, {
+          responseType: 'arraybuffer',
+        });
     };
     
 

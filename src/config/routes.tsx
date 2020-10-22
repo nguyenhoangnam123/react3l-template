@@ -74,11 +74,15 @@ import { WARD_ROUTE, WARD_MASTER_ROUTE, WARD_DETAIL_ROUTE } from 'config/route-c
 const ActionView = React.lazy(() =>
   import("views/ActionView/ActionView"),
 );
-const ActionDetailView = React.lazy(() =>
-  import("views/ActionView/ActionView"),
+const ActionDetail = React.lazy(() =>
+  import("views/ActionView/ActionView").then((module) => ({
+    default: module.ActionDetail,
+  })),
 );
-const ActionMasterView = React.lazy(() =>
-  import("views/ActionView/ActionView"),
+const ActionMaster = React.lazy(() =>
+  import("views/ActionView/ActionView").then((module) => ({
+    default: module.ActionMaster,
+  })),
 );
 
 
@@ -86,22 +90,30 @@ const ActionMasterView = React.lazy(() =>
 const AppUserView = React.lazy(() =>
   import("views/AppUserView/AppUserView"),
 );
-const AppUserDetailView = React.lazy(() =>
-  import("views/AppUserView/AppUserView"),
+const AppUserDetail = React.lazy(() =>
+  import("views/AppUserView/AppUserView").then((module) => ({
+    default: module.AppUserDetail,
+  })),
 );
-const AppUserMasterView = React.lazy(() =>
-  import("views/AppUserView/AppUserView"),
+const AppUserMaster = React.lazy(() =>
+  import("views/AppUserView/AppUserView").then((module) => ({
+    default: module.AppUserMaster,
+  })),
 );
 
 
 const AppUserPermissionView = React.lazy(() =>
   import("views/AppUserPermissionView/AppUserPermissionView"),
 );
-const AppUserPermissionDetailView = React.lazy(() =>
-  import("views/AppUserPermissionView/AppUserPermissionView"),
+const AppUserPermissionDetail = React.lazy(() =>
+  import("views/AppUserPermissionView/AppUserPermissionView").then((module) => ({
+    default: module.AppUserPermissionDetail,
+  })),
 );
-const AppUserPermissionMasterView = React.lazy(() =>
-  import("views/AppUserPermissionView/AppUserPermissionView"),
+const AppUserPermissionMaster = React.lazy(() =>
+  import("views/AppUserPermissionView/AppUserPermissionView").then((module) => ({
+    default: module.AppUserPermissionMaster,
+  })),
 );
 
 
@@ -110,77 +122,105 @@ const AppUserPermissionMasterView = React.lazy(() =>
 const DistrictView = React.lazy(() =>
   import("views/DistrictView/DistrictView"),
 );
-const DistrictDetailView = React.lazy(() =>
-  import("views/DistrictView/DistrictView"),
+const DistrictDetail = React.lazy(() =>
+  import("views/DistrictView/DistrictView").then((module) => ({
+    default: module.DistrictDetail,
+  })),
 );
-const DistrictMasterView = React.lazy(() =>
-  import("views/DistrictView/DistrictView"),
+const DistrictMaster = React.lazy(() =>
+  import("views/DistrictView/DistrictView").then((module) => ({
+    default: module.DistrictMaster,
+  })),
 );
 
 
 const EventMessageView = React.lazy(() =>
   import("views/EventMessageView/EventMessageView"),
 );
-const EventMessageDetailView = React.lazy(() =>
-  import("views/EventMessageView/EventMessageView"),
+const EventMessageDetail = React.lazy(() =>
+  import("views/EventMessageView/EventMessageView").then((module) => ({
+    default: module.EventMessageDetail,
+  })),
 );
-const EventMessageMasterView = React.lazy(() =>
-  import("views/EventMessageView/EventMessageView"),
+const EventMessageMaster = React.lazy(() =>
+  import("views/EventMessageView/EventMessageView").then((module) => ({
+    default: module.EventMessageMaster,
+  })),
 );
 
 
 const FieldView = React.lazy(() =>
   import("views/FieldView/FieldView"),
 );
-const FieldDetailView = React.lazy(() =>
-  import("views/FieldView/FieldView"),
+const FieldDetail = React.lazy(() =>
+  import("views/FieldView/FieldView").then((module) => ({
+    default: module.FieldDetail,
+  })),
 );
-const FieldMasterView = React.lazy(() =>
-  import("views/FieldView/FieldView"),
+const FieldMaster = React.lazy(() =>
+  import("views/FieldView/FieldView").then((module) => ({
+    default: module.FieldMaster,
+  })),
 );
 
 
 const FieldTypeView = React.lazy(() =>
   import("views/FieldTypeView/FieldTypeView"),
 );
-const FieldTypeDetailView = React.lazy(() =>
-  import("views/FieldTypeView/FieldTypeView"),
+const FieldTypeDetail = React.lazy(() =>
+  import("views/FieldTypeView/FieldTypeView").then((module) => ({
+    default: module.FieldTypeDetail,
+  })),
 );
-const FieldTypeMasterView = React.lazy(() =>
-  import("views/FieldTypeView/FieldTypeView"),
+const FieldTypeMaster = React.lazy(() =>
+  import("views/FieldTypeView/FieldTypeView").then((module) => ({
+    default: module.FieldTypeMaster,
+  })),
 );
 
 
 const MenuView = React.lazy(() =>
   import("views/MenuView/MenuView"),
 );
-const MenuDetailView = React.lazy(() =>
-  import("views/MenuView/MenuView"),
+const MenuDetail = React.lazy(() =>
+  import("views/MenuView/MenuView").then((module) => ({
+    default: module.MenuDetail,
+  })),
 );
-const MenuMasterView = React.lazy(() =>
-  import("views/MenuView/MenuView"),
+const MenuMaster = React.lazy(() =>
+  import("views/MenuView/MenuView").then((module) => ({
+    default: module.MenuMaster,
+  })),
 );
 
 
 const OrganizationTreeView = React.lazy(() =>
   import("views/OrganizationTreeView/OrganizationTreeView"),
 );
-const OrganizationTreeDetailView = React.lazy(() =>
-  import("views/OrganizationTreeView/OrganizationTreeView"),
+const OrganizationTreeDetail = React.lazy(() =>
+  import("views/OrganizationTreeView/OrganizationTreeView").then((module) => ({
+    default: module.OrganizationTreeDetail,
+  })),
 );
-const OrganizationTreeMasterView = React.lazy(() =>
-  import("views/OrganizationTreeView/OrganizationTreeView"),
+const OrganizationTreeMaster = React.lazy(() =>
+  import("views/OrganizationTreeView/OrganizationTreeView").then((module) => ({
+    default: module.OrganizationTreeMaster,
+  })),
 );
 
 
 const PageView = React.lazy(() =>
   import("views/PageView/PageView"),
 );
-const PageDetailView = React.lazy(() =>
-  import("views/PageView/PageView"),
+const PageDetail = React.lazy(() =>
+  import("views/PageView/PageView").then((module) => ({
+    default: module.PageDetail,
+  })),
 );
-const PageMasterView = React.lazy(() =>
-  import("views/PageView/PageView"),
+const PageMaster = React.lazy(() =>
+  import("views/PageView/PageView").then((module) => ({
+    default: module.PageMaster,
+  })),
 );
 
 
@@ -188,22 +228,30 @@ const PageMasterView = React.lazy(() =>
 const PermissionContentView = React.lazy(() =>
   import("views/PermissionContentView/PermissionContentView"),
 );
-const PermissionContentDetailView = React.lazy(() =>
-  import("views/PermissionContentView/PermissionContentView"),
+const PermissionContentDetail = React.lazy(() =>
+  import("views/PermissionContentView/PermissionContentView").then((module) => ({
+    default: module.PermissionContentDetail,
+  })),
 );
-const PermissionContentMasterView = React.lazy(() =>
-  import("views/PermissionContentView/PermissionContentView"),
+const PermissionContentMaster = React.lazy(() =>
+  import("views/PermissionContentView/PermissionContentView").then((module) => ({
+    default: module.PermissionContentMaster,
+  })),
 );
 
 
 const PermissionView = React.lazy(() =>
   import("views/PermissionView/PermissionView"),
 );
-const PermissionDetailView = React.lazy(() =>
-  import("views/PermissionView/PermissionView"),
+const PermissionDetail = React.lazy(() =>
+  import("views/PermissionView/PermissionView").then((module) => ({
+    default: module.PermissionDetail,
+  })),
 );
-const PermissionMasterView = React.lazy(() =>
-  import("views/PermissionView/PermissionView"),
+const PermissionMaster = React.lazy(() =>
+  import("views/PermissionView/PermissionView").then((module) => ({
+    default: module.PermissionMaster,
+  })),
 );
 
 
@@ -211,55 +259,75 @@ const PermissionMasterView = React.lazy(() =>
 const PermissionOperatorView = React.lazy(() =>
   import("views/PermissionOperatorView/PermissionOperatorView"),
 );
-const PermissionOperatorDetailView = React.lazy(() =>
-  import("views/PermissionOperatorView/PermissionOperatorView"),
+const PermissionOperatorDetail = React.lazy(() =>
+  import("views/PermissionOperatorView/PermissionOperatorView").then((module) => ({
+    default: module.PermissionOperatorDetail,
+  })),
 );
-const PermissionOperatorMasterView = React.lazy(() =>
-  import("views/PermissionOperatorView/PermissionOperatorView"),
+const PermissionOperatorMaster = React.lazy(() =>
+  import("views/PermissionOperatorView/PermissionOperatorView").then((module) => ({
+    default: module.PermissionOperatorMaster,
+  })),
 );
 
 
 const PositionView = React.lazy(() =>
   import("views/PositionView/PositionView"),
 );
-const PositionDetailView = React.lazy(() =>
-  import("views/PositionView/PositionView"),
+const PositionDetail = React.lazy(() =>
+  import("views/PositionView/PositionView").then((module) => ({
+    default: module.PositionDetail,
+  })),
 );
-const PositionMasterView = React.lazy(() =>
-  import("views/PositionView/PositionView"),
+const PositionMaster = React.lazy(() =>
+  import("views/PositionView/PositionView").then((module) => ({
+    default: module.PositionMaster,
+  })),
 );
 
 
 const ProviderView = React.lazy(() =>
   import("views/ProviderView/ProviderView"),
 );
-const ProviderDetailView = React.lazy(() =>
-  import("views/ProviderView/ProviderView"),
+const ProviderDetail = React.lazy(() =>
+  import("views/ProviderView/ProviderView").then((module) => ({
+    default: module.ProviderDetail,
+  })),
 );
-const ProviderMasterView = React.lazy(() =>
-  import("views/ProviderView/ProviderView"),
+const ProviderMaster = React.lazy(() =>
+  import("views/ProviderView/ProviderView").then((module) => ({
+    default: module.ProviderMaster,
+  })),
 );
 
 
 const ProvinceView = React.lazy(() =>
   import("views/ProvinceView/ProvinceView"),
 );
-const ProvinceDetailView = React.lazy(() =>
-  import("views/ProvinceView/ProvinceView"),
+const ProvinceDetail = React.lazy(() =>
+  import("views/ProvinceView/ProvinceView").then((module) => ({
+    default: module.ProvinceDetail,
+  })),
 );
-const ProvinceMasterView = React.lazy(() =>
-  import("views/ProvinceView/ProvinceView"),
+const ProvinceMaster = React.lazy(() =>
+  import("views/ProvinceView/ProvinceView").then((module) => ({
+    default: module.ProvinceMaster,
+  })),
 );
 
 
 const RoleView = React.lazy(() =>
   import("views/RoleView/RoleView"),
 );
-const RoleDetailView = React.lazy(() =>
-  import("views/RoleView/RoleView"),
+const RoleDetail = React.lazy(() =>
+  import("views/RoleView/RoleView").then((module) => ({
+    default: module.RoleDetail,
+  })),
 );
-const RoleMasterView = React.lazy(() =>
-  import("views/RoleView/RoleView"),
+const RoleMaster = React.lazy(() =>
+  import("views/RoleView/RoleView").then((module) => ({
+    default: module.RoleMaster,
+  })),
 );
 
 
@@ -267,11 +335,15 @@ const RoleMasterView = React.lazy(() =>
 const SiteView = React.lazy(() =>
   import("views/SiteView/SiteView"),
 );
-const SiteDetailView = React.lazy(() =>
-  import("views/SiteView/SiteView"),
+const SiteDetail = React.lazy(() =>
+  import("views/SiteView/SiteView").then((module) => ({
+    default: module.SiteDetail,
+  })),
 );
-const SiteMasterView = React.lazy(() =>
-  import("views/SiteView/SiteView"),
+const SiteMaster = React.lazy(() =>
+  import("views/SiteView/SiteView").then((module) => ({
+    default: module.SiteMaster,
+  })),
 );
 
 
@@ -279,22 +351,30 @@ const SiteMasterView = React.lazy(() =>
 const ThemeView = React.lazy(() =>
   import("views/ThemeView/ThemeView"),
 );
-const ThemeDetailView = React.lazy(() =>
-  import("views/ThemeView/ThemeView"),
+const ThemeDetail = React.lazy(() =>
+  import("views/ThemeView/ThemeView").then((module) => ({
+    default: module.ThemeDetail,
+  })),
 );
-const ThemeMasterView = React.lazy(() =>
-  import("views/ThemeView/ThemeView"),
+const ThemeMaster = React.lazy(() =>
+  import("views/ThemeView/ThemeView").then((module) => ({
+    default: module.ThemeMaster,
+  })),
 );
 
 
 const WardView = React.lazy(() =>
   import("views/WardView/WardView"),
 );
-const WardDetailView = React.lazy(() =>
-  import("views/WardView/WardView"),
+const WardDetail = React.lazy(() =>
+  import("views/WardView/WardView").then((module) => ({
+    default: module.WardDetail,
+  })),
 );
-const WardMasterView = React.lazy(() =>
-  import("views/WardView/WardView"),
+const WardMaster = React.lazy(() =>
+  import("views/WardView/WardView").then((module) => ({
+    default: module.WardMaster,
+  })),
 );
 
 
@@ -313,11 +393,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(ACTION_DETAIL_ROUTE, ':id'),
-                        component: ActionDetailView,
+                        component: ActionDetail,
                     },
                     {
                         path: ACTION_MASTER_ROUTE,
-                        component: ActionMasterView,
+                        component: ActionMaster,
                     },
                 ],
             },
@@ -331,11 +411,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(APP_USER_DETAIL_ROUTE, ':id'),
-                        component: AppUserDetailView,
+                        component: AppUserDetail,
                     },
                     {
                         path: APP_USER_MASTER_ROUTE,
-                        component: AppUserMasterView,
+                        component: AppUserMaster,
                     },
                 ],
             },
@@ -348,11 +428,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(APP_USER_PERMISSION_DETAIL_ROUTE, ':id'),
-                        component: AppUserPermissionDetailView,
+                        component: AppUserPermissionDetail,
                     },
                     {
                         path: APP_USER_PERMISSION_MASTER_ROUTE,
-                        component: AppUserPermissionMasterView,
+                        component: AppUserPermissionMaster,
                     },
                 ],
             },
@@ -367,11 +447,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(DISTRICT_DETAIL_ROUTE, ':id'),
-                        component: DistrictDetailView,
+                        component: DistrictDetail,
                     },
                     {
                         path: DISTRICT_MASTER_ROUTE,
-                        component: DistrictMasterView,
+                        component: DistrictMaster,
                     },
                 ],
             },
@@ -384,11 +464,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(EVENT_MESSAGE_DETAIL_ROUTE, ':id'),
-                        component: EventMessageDetailView,
+                        component: EventMessageDetail,
                     },
                     {
                         path: EVENT_MESSAGE_MASTER_ROUTE,
-                        component: EventMessageMasterView,
+                        component: EventMessageMaster,
                     },
                 ],
             },
@@ -401,11 +481,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(FIELD_DETAIL_ROUTE, ':id'),
-                        component: FieldDetailView,
+                        component: FieldDetail,
                     },
                     {
                         path: FIELD_MASTER_ROUTE,
-                        component: FieldMasterView,
+                        component: FieldMaster,
                     },
                 ],
             },
@@ -418,11 +498,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(FIELD_TYPE_DETAIL_ROUTE, ':id'),
-                        component: FieldTypeDetailView,
+                        component: FieldTypeDetail,
                     },
                     {
                         path: FIELD_TYPE_MASTER_ROUTE,
-                        component: FieldTypeMasterView,
+                        component: FieldTypeMaster,
                     },
                 ],
             },
@@ -435,11 +515,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(MENU_DETAIL_ROUTE, ':id'),
-                        component: MenuDetailView,
+                        component: MenuDetail,
                     },
                     {
                         path: MENU_MASTER_ROUTE,
-                        component: MenuMasterView,
+                        component: MenuMaster,
                     },
                 ],
             },
@@ -452,11 +532,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(ORGANIZATION_DETAIL_ROUTE, ':id'),
-                        component: OrganizationTreeDetailView,
+                        component: OrganizationTreeDetail,
                     },
                     {
                         path: ORGANIZATION_MASTER_ROUTE,
-                        component: OrganizationTreeMasterView,
+                        component: OrganizationTreeMaster,
                     },
                 ],
             },
@@ -469,11 +549,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(PAGE_DETAIL_ROUTE, ':id'),
-                        component: PageDetailView,
+                        component: PageDetail,
                     },
                     {
                         path: PAGE_MASTER_ROUTE,
-                        component: PageMasterView,
+                        component: PageMaster,
                     },
                 ],
             },
@@ -487,11 +567,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(PERMISSION_CONTENT_DETAIL_ROUTE, ':id'),
-                        component: PermissionContentDetailView,
+                        component: PermissionContentDetail,
                     },
                     {
                         path: PERMISSION_CONTENT_MASTER_ROUTE,
-                        component: PermissionContentMasterView,
+                        component: PermissionContentMaster,
                     },
                 ],
             },
@@ -504,11 +584,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(PERMISSION_DETAIL_ROUTE, ':id'),
-                        component: PermissionDetailView,
+                        component: PermissionDetail,
                     },
                     {
                         path: PERMISSION_MASTER_ROUTE,
-                        component: PermissionMasterView,
+                        component: PermissionMaster,
                     },
                 ],
             },
@@ -522,11 +602,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(PERMISSION_OPERATOR_DETAIL_ROUTE, ':id'),
-                        component: PermissionOperatorDetailView,
+                        component: PermissionOperatorDetail,
                     },
                     {
                         path: PERMISSION_OPERATOR_MASTER_ROUTE,
-                        component: PermissionOperatorMasterView,
+                        component: PermissionOperatorMaster,
                     },
                 ],
             },
@@ -539,11 +619,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(POSITION_DETAIL_ROUTE, ':id'),
-                        component: PositionDetailView,
+                        component: PositionDetail,
                     },
                     {
                         path: POSITION_MASTER_ROUTE,
-                        component: PositionMasterView,
+                        component: PositionMaster,
                     },
                 ],
             },
@@ -556,11 +636,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(PROVIDER_DETAIL_ROUTE, ':id'),
-                        component: ProviderDetailView,
+                        component: ProviderDetail,
                     },
                     {
                         path: PROVIDER_MASTER_ROUTE,
-                        component: ProviderMasterView,
+                        component: ProviderMaster,
                     },
                 ],
             },
@@ -573,11 +653,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(PROVINCE_DETAIL_ROUTE, ':id'),
-                        component: ProvinceDetailView,
+                        component: ProvinceDetail,
                     },
                     {
                         path: PROVINCE_MASTER_ROUTE,
-                        component: ProvinceMasterView,
+                        component: ProvinceMaster,
                     },
                 ],
             },
@@ -590,11 +670,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(ROLE_DETAIL_ROUTE, ':id'),
-                        component: RoleDetailView,
+                        component: RoleDetail,
                     },
                     {
                         path: ROLE_MASTER_ROUTE,
-                        component: RoleMasterView,
+                        component: RoleMaster,
                     },
                 ],
             },
@@ -608,11 +688,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(SITE_DETAIL_ROUTE, ':id'),
-                        component: SiteDetailView,
+                        component: SiteDetail,
                     },
                     {
                         path: SITE_MASTER_ROUTE,
-                        component: SiteMasterView,
+                        component: SiteMaster,
                     },
                 ],
             },
@@ -626,11 +706,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(THEME_DETAIL_ROUTE, ':id'),
-                        component: ThemeDetailView,
+                        component: ThemeDetail,
                     },
                     {
                         path: THEME_MASTER_ROUTE,
-                        component: ThemeMasterView,
+                        component: ThemeMaster,
                     },
                 ],
             },
@@ -643,11 +723,11 @@ export const routes: RouteConfig[] =
                 [
                     {
                         path: join(WARD_DETAIL_ROUTE, ':id'),
-                        component: WardDetailView,
+                        component: WardDetail,
                     },
                     {
                         path: WARD_MASTER_ROUTE,
-                        component: WardMasterView,
+                        component: WardMaster,
                     },
                 ],
             },

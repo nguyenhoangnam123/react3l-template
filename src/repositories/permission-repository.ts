@@ -11,6 +11,8 @@ import { API_PERMISSION_PREFIX } from "config/api-consts";
 import { Permission, PermissionFilter } from 'models/Permission';
 import { Menu, MenuFilter } from 'models/Menu';
 import { Role, RoleFilter } from 'models/Role';
+import { PermissionActionMapping, PermissionActionMappingFilter } from 'models/PermissionActionMapping';
+import { Action, ActionFilter } from 'models/Action';
 import { PermissionFieldMapping, PermissionFieldMappingFilter } from 'models/PermissionFieldMapping';
 import { Field, FieldFilter } from 'models/Field';
 
@@ -63,6 +65,14 @@ export class PermissionRepository extends Repository {
         return this.httpObservable.post<Role[]>(kebabCase(nameof(this.singleListRole)), roleFilter)
             .pipe(map((response: AxiosResponse<Role[]>) => response.data));
     };
+    public singleListPermissionActionMapping = (permissionActionMappingFilter: PermissionActionMappingFilter): Observable<PermissionActionMapping[]> => {
+        return this.httpObservable.post<PermissionActionMapping[]>(kebabCase(nameof(this.singleListPermissionActionMapping)), permissionActionMappingFilter)
+            .pipe(map((response: AxiosResponse<PermissionActionMapping[]>) => response.data));
+    };
+    public singleListAction = (actionFilter: ActionFilter): Observable<Action[]> => {
+        return this.httpObservable.post<Action[]>(kebabCase(nameof(this.singleListAction)), actionFilter)
+            .pipe(map((response: AxiosResponse<Action[]>) => response.data));
+    };
     public singleListPermissionFieldMapping = (permissionFieldMappingFilter: PermissionFieldMappingFilter): Observable<PermissionFieldMapping[]> => {
         return this.httpObservable.post<PermissionFieldMapping[]>(kebabCase(nameof(this.singleListPermissionFieldMapping)), permissionFieldMappingFilter)
             .pipe(map((response: AxiosResponse<PermissionFieldMapping[]>) => response.data));
@@ -70,6 +80,31 @@ export class PermissionRepository extends Repository {
     public singleListField = (fieldFilter: FieldFilter): Observable<Field[]> => {
         return this.httpObservable.post<Field[]>(kebabCase(nameof(this.singleListField)), fieldFilter)
             .pipe(map((response: AxiosResponse<Field[]>) => response.data));
+    };
+    
+    public countAction = (actionFilter: ActionFilter): Observable<number> => {
+        return this.httpObservable.post<number>(kebabCase(nameof(this.countAction)), actionFilter)
+            .pipe(map((response: AxiosResponse<number>) => response.data));
+    };
+    public listAction = (actionFilter: ActionFilter): Observable<Action[]> => {
+        return this.httpObservable.post<Action[]>(kebabCase(nameof(this.listAction)), actionFilter)
+            .pipe(map((response: AxiosResponse<Action[]>) => response.data));
+    };
+    public importAction = (file: File, name: string = nameof(file)): Observable<void> => {
+        const formData: FormData = new FormData();
+        formData.append(name, file);
+            return this.httpObservable.post<void>(kebabCase(nameof(this.importAction)), formData)
+                .pipe(map((response: AxiosResponse<void>) => response.data));
+    };
+    public exportAction = (filter: any): Observable<AxiosResponse<any>> => {
+        return this.httpObservable.post(kebabCase(nameof(this.exportAction)), filter, {
+          responseType: 'arraybuffer',
+        });
+    };
+    public exportTemplateAction = (): Observable<AxiosResponse<any>> => {
+        return this.httpObservable.post(kebabCase(nameof(this.exportTemplateAction)), {}, {
+          responseType: 'arraybuffer',
+        });
     };
     
     public countField = (fieldFilter: FieldFilter): Observable<number> => {
