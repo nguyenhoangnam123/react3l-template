@@ -3,7 +3,7 @@ import { BASE_API_URL } from "config/consts";
 import { Repository } from "@react3l/react3l/core";
 import { serialize } from "@react3l/react3l/helpers";
 import authenticationService from "services/authentication-service";
-import appMessageService from "services/app-message-service";
+import appMessageService, { messageType } from "services/app-message-service";
 import { FORBIDENT_ROUTE } from "config/route-consts";
 export const httpConfig: AxiosRequestConfig = {
   withCredentials: false,
@@ -44,37 +44,59 @@ Repository.responseInterceptor = function(
 };
 
 Repository.errorInterceptor = function(error: AxiosError): AxiosError {
-  const {
-    notifyUnAuthorize,
-    notifyBadRequest,
-    notifyServerError,
-    notifyBEError,
-    notifyIdleError,
-  } = appMessageService.useCRUDMessage();
   // log error if dev environment
   if (error?.response?.status) {
     switch (error.response.status) {
       case 400:
-        notifyBadRequest();
+        appMessageService.messageFactory({
+          type: messageType.ERROR,
+          title: "Bạn chưa đăng nhập hoặc không có quyền vào trang này",
+          description: error.response.statusText,
+        });
         break;
       case 401:
-        notifyUnAuthorize(error.response.statusText);
+        appMessageService.messageFactory({
+          type: messageType.ERROR,
+          title: "Bạn chưa đăng nhập để thực hiện thao tác",
+          description: error.response.statusText,
+        });
         authenticationService.logout();
         break;
       case 403:
+        appMessageService.messageFactory({
+          type: messageType.ERROR,
+          title: "Bạn không có quyền thực hiện thao tác",
+          description: error.response.statusText,
+        });
         window.location.href = FORBIDENT_ROUTE;
         break;
       case 420:
-        notifyBEError(error.response.statusText);
+        appMessageService.messageFactory({
+          type: messageType.ERROR,
+          title: "lỗi BE",
+          description: error.response.statusText,
+        });
         break;
       case 500:
-        notifyServerError(error.response.statusText);
+        appMessageService.messageFactory({
+          type: messageType.ERROR,
+          title: "Lỗi hệ thống",
+          description: error.response.statusText,
+        });
         break;
       case 502:
-        notifyServerError(error.response.statusText);
+        appMessageService.messageFactory({
+          type: messageType.ERROR,
+          title: "Server BE không hoạt động",
+          description: error.response.statusText,
+        });
         break;
       case 504:
-        notifyIdleError(error.response.statusText);
+        appMessageService.messageFactory({
+          type: messageType.ERROR,
+          title: "Phản hồi quá chậm",
+          description: error.response.statusText,
+        });
         break;
       default:
         break;
