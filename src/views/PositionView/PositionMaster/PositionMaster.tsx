@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -31,7 +30,7 @@ import { POSITION_DETAIL_ROUTE } from "config/route-consts";
 import { Status, StatusFilter } from "models/Status";
 /* end individual import */
 
-function PositionMasterView() {
+function PositionMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -91,7 +90,7 @@ function PositionMasterView() {
                     
                     
                     {
-                        title: translate('positions.code'),
+                        title: (<div className='text-center'>{translate('positions.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -105,7 +104,7 @@ function PositionMasterView() {
                     
                     
                     {
-                        title: translate('positions.name'),
+                        title: (<div className='text-center'>{translate('positions.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -128,17 +127,6 @@ function PositionMasterView() {
                     
                     
                     
-                    {
-                        title: translate('positions.used'),
-                        key: nameof(list[0].used),
-                        dataIndex: nameof(list[0].used),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Position, PositionFilter>
-                            (
-                                filter,
-                                nameof(list[0].used),
-                            ),
-                    },
                     
                     
                     
@@ -153,7 +141,7 @@ function PositionMasterView() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status?.name;
+                            return status //fill the render field after generate code;
                         }
                     },
                     
@@ -381,4 +369,4 @@ function PositionMasterView() {
     );
 }
 
-export default PositionMasterView;
+export default PositionMaster;

@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -32,7 +31,7 @@ import { FieldType, FieldTypeFilter } from "models/FieldType";
 import { Menu, MenuFilter } from "models/Menu";
 /* end individual import */
 
-function FieldMasterView() {
+function FieldMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -92,7 +91,7 @@ function FieldMasterView() {
                     
                     
                     {
-                        title: translate('fields.name'),
+                        title: (<div className='text-center'>{translate('fields.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -109,17 +108,6 @@ function FieldMasterView() {
                     
                     
                     
-                    {
-                        title: translate('fields.isDeleted'),
-                        key: nameof(list[0].isDeleted),
-                        dataIndex: nameof(list[0].isDeleted),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Field, FieldFilter>
-                            (
-                                filter,
-                                nameof(list[0].isDeleted),
-                            ),
-                    },
                     
                     
                     
@@ -134,7 +122,7 @@ function FieldMasterView() {
                                 nameof(list[0].fieldType),
                             ),
                         render(fieldType: FieldType) {
-                            return fieldType?.name;
+                            return fieldType //fill the render field after generate code;
                         }
                     },
                     
@@ -150,7 +138,7 @@ function FieldMasterView() {
                                 nameof(list[0].menu),
                             ),
                         render(menu: Menu) {
-                            return menu?.name;
+                            return menu //fill the render field after generate code;
                         }
                     },
                     
@@ -379,4 +367,4 @@ function FieldMasterView() {
     );
 }
 
-export default FieldMasterView;
+export default FieldMaster;

@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -24,6 +23,7 @@ import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/Ad
 import { IdFilter } from "@react3l/advanced-filters";
 import AdvanceNumberFilter from "components/Utility/AdvanceFilter/AdvanceNumberFilter/AdvanceNumberFilter";
 import { NumberFilter } from "@react3l/advanced-filters";
+import { formatNumber } from "helpers/number";
 /* end filter import */
 
 /* begin individual import */
@@ -34,7 +34,7 @@ import { Province, ProvinceFilter } from "models/Province";
 import { Status, StatusFilter } from "models/Status";
 /* end individual import */
 
-function DistrictMasterView() {
+function DistrictMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -94,7 +94,7 @@ function DistrictMasterView() {
                     
                     
                     {
-                        title: translate('districts.code'),
+                        title: (<div className='text-center'>{translate('districts.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -108,7 +108,7 @@ function DistrictMasterView() {
                     
                     
                     {
-                        title: translate('districts.name'),
+                        title: (<div className='text-center'>{translate('districts.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -122,7 +122,7 @@ function DistrictMasterView() {
                     
                     
                     {
-                        title: translate('districts.priority'),
+                        title: (<div className='text-center'>{translate('districts.priority')}</div>),
                         key: nameof(list[0].priority),
                         dataIndex: nameof(list[0].priority),
                         sorter: true,
@@ -131,6 +131,9 @@ function DistrictMasterView() {
                                 filter,
                                 nameof(list[0].priority),
                             ),
+                        render(...params: [number, District, number]) {
+                            return <div className='text-right'>{formatNumber(params[0])}</div>;
+                        },
                     },
                     
                     
@@ -147,17 +150,6 @@ function DistrictMasterView() {
                     
                     
                     
-                    {
-                        title: translate('districts.used'),
-                        key: nameof(list[0].used),
-                        dataIndex: nameof(list[0].used),
-                        sorter: true,
-                        sortOrder: getAntOrderType<District, DistrictFilter>
-                            (
-                                filter,
-                                nameof(list[0].used),
-                            ),
-                    },
                     
                     
                     
@@ -172,7 +164,7 @@ function DistrictMasterView() {
                                 nameof(list[0].province),
                             ),
                         render(province: Province) {
-                            return province?.name;
+                            return province //fill the render field after generate code;
                         }
                     },
                     
@@ -188,7 +180,7 @@ function DistrictMasterView() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status?.name;
+                            return status //fill the render field after generate code;
                         }
                     },
                     
@@ -446,4 +438,4 @@ function DistrictMasterView() {
     );
 }
 
-export default DistrictMasterView;
+export default DistrictMaster;

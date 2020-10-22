@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -11,27 +11,22 @@ import detailService from "services/pages/detail-service";
 /* begin individual import */
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
-import ContentModal from "components/Utility/ContentModal/ContentModal";
-import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { PermissionOperator } from 'models/PermissionOperator';
 import { PERMISSION_OPERATOR_MASTER_ROUTE } from 'config/route-consts'
 import { permissionOperatorRepository } from "repositories/permission-operator-repository";
 
-import { FieldType, FieldTypeFilter } from 'models/FieldType'
+import { FieldTypeFilter } from 'models/FieldType'
 /* end individual import */
 
 const { TabPane } = Tabs;
 
-function PermissionOperatorDetailView() {
+function PermissionOperatorDetail() {
     const [translate] = useTranslation();
 
     const {
         model,
-        handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<PermissionOperator>
@@ -123,4 +118,4 @@ function PermissionOperatorDetailView() {
     );
 }
 
-export default PermissionOperatorDetailView;
+export default PermissionOperatorDetail;

@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -30,7 +29,7 @@ import { Menu, MenuFilter } from "models/Menu";
 import { MENU_DETAIL_ROUTE } from "config/route-consts";
 /* end individual import */
 
-function MenuMasterView() {
+function MenuMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -90,7 +89,7 @@ function MenuMasterView() {
                     
                     
                     {
-                        title: translate('menus.code'),
+                        title: (<div className='text-center'>{translate('menus.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -104,7 +103,7 @@ function MenuMasterView() {
                     
                     
                     {
-                        title: translate('menus.name'),
+                        title: (<div className='text-center'>{translate('menus.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -118,7 +117,7 @@ function MenuMasterView() {
                     
                     
                     {
-                        title: translate('menus.path'),
+                        title: (<div className='text-center'>{translate('menus.path')}</div>),
                         key: nameof(list[0].path),
                         dataIndex: nameof(list[0].path),
                         sorter: true,
@@ -131,17 +130,6 @@ function MenuMasterView() {
                     
                     
                     
-                    {
-                        title: translate('menus.isDeleted'),
-                        key: nameof(list[0].isDeleted),
-                        dataIndex: nameof(list[0].isDeleted),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Menu, MenuFilter>
-                            (
-                                filter,
-                                nameof(list[0].isDeleted),
-                            ),
-                    },
                     
                     
                     
@@ -366,4 +354,4 @@ function MenuMasterView() {
     );
 }
 
-export default MenuMasterView;
+export default MenuMaster;

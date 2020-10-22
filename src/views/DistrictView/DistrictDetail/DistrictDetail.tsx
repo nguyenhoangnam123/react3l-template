@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -12,29 +12,24 @@ import detailService from "services/pages/detail-service";
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
 import InputNumber, { DECIMAL, LONG } from "components/Utility/Input/InputNumber/InputNumber";
-import ContentModal from "components/Utility/ContentModal/ContentModal";
-import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { District } from 'models/District';
 import { DISTRICT_MASTER_ROUTE } from 'config/route-consts'
 import { districtRepository } from "repositories/district-repository";
 
-import { Province, ProvinceFilter } from 'models/Province'
+import { ProvinceFilter } from 'models/Province'
 
-import { Status, StatusFilter } from 'models/Status'
+import { StatusFilter } from 'models/Status'
 /* end individual import */
 
 const { TabPane } = Tabs;
 
-function DistrictDetailView() {
+function DistrictDetail() {
     const [translate] = useTranslation();
 
     const {
         model,
-        handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<District>
@@ -165,4 +160,4 @@ function DistrictDetailView() {
     );
 }
 
-export default DistrictDetailView;
+export default DistrictDetail;

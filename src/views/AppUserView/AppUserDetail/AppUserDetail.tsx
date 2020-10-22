@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -20,22 +20,22 @@ import { AppUser } from 'models/AppUser';
 import { APP_USER_MASTER_ROUTE } from 'config/route-consts'
 import { appUserRepository } from "repositories/app-user-repository";
 
-import { Organization, OrganizationFilter } from 'models/Organization'
+import { OrganizationFilter } from 'models/Organization'
 
-import { Position, PositionFilter } from 'models/Position'
+import { PositionFilter } from 'models/Position'
 
-import { Province, ProvinceFilter } from 'models/Province'
+import { ProvinceFilter } from 'models/Province'
 
-import { Sex, SexFilter } from 'models/Sex'
+import { SexFilter } from 'models/Sex'
 
-import { Status, StatusFilter } from 'models/Status'
+import { StatusFilter } from 'models/Status'
 import { useAppUserRoleMappingTable } from "./AppUserRoleMappingHook";
 import { appUserRoleMappingContentMapper, useAppUserRoleMappingModal } from "./AppUserRoleMappingHook";
 /* end individual import */
 
 const { TabPane } = Tabs;
 
-function AppUserDetailView() {
+function AppUserDetail() {
     const [translate] = useTranslation();
 
     const {
@@ -73,6 +73,7 @@ function AppUserDetailView() {
         handleImportAppUserRoleMapping,
         handleExportAppUserRoleMapping,
         handleExportTemplateAppUserRoleMapping,
+        handleSearchAppUserRoleMapping
     } = useAppUserRoleMappingTable(model, handleUpdateNewModel);
     const {
         visibleRole,
@@ -88,7 +89,7 @@ function AppUserDetailView() {
         handleSaveRoleModal,
         selectedRoleList,
         roleColumns,
-    } = useAppUserRoleMappingModal(appUserRoleMappingContents);
+    } = useAppUserRoleMappingModal(appUserRoleMappingContents, handleSearchAppUserRoleMapping);
     
 
     return (
@@ -436,4 +437,4 @@ function AppUserDetailView() {
     );
 }
 
-export default AppUserDetailView;
+export default AppUserDetail;

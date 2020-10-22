@@ -1,6 +1,6 @@
 import React from 'react';
 import {renderRoutes, RouteConfigComponentProps} from 'react-router-config';
-import {Switch, withRouter} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import './PageView.scss';
 import PageDetail from './PageDetail/PageDetail';
 import PageMaster from './PageMaster/PageMaster';

@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -31,7 +30,7 @@ import { PERMISSION_OPERATOR_DETAIL_ROUTE } from "config/route-consts";
 import { FieldType, FieldTypeFilter } from "models/FieldType";
 /* end individual import */
 
-function PermissionOperatorMasterView() {
+function PermissionOperatorMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -91,7 +90,7 @@ function PermissionOperatorMasterView() {
                     
                     
                     {
-                        title: translate('permissionOperators.code'),
+                        title: (<div className='text-center'>{translate('permissionOperators.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -105,7 +104,7 @@ function PermissionOperatorMasterView() {
                     
                     
                     {
-                        title: translate('permissionOperators.name'),
+                        title: (<div className='text-center'>{translate('permissionOperators.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -131,7 +130,7 @@ function PermissionOperatorMasterView() {
                                 nameof(list[0].fieldType),
                             ),
                         render(fieldType: FieldType) {
-                            return fieldType?.name;
+                            return fieldType //fill the render field after generate code;
                         }
                     },
                     
@@ -348,4 +347,4 @@ function PermissionOperatorMasterView() {
     );
 }
 
-export default PermissionOperatorMasterView;
+export default PermissionOperatorMaster;

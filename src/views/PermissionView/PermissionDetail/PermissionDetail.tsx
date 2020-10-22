@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -13,21 +13,22 @@ import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
 import ContentModal from "components/Utility/ContentModal/ContentModal";
 import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { Permission } from 'models/Permission';
 import { PERMISSION_MASTER_ROUTE } from 'config/route-consts'
 import { permissionRepository } from "repositories/permission-repository";
 
-import { Menu, MenuFilter } from 'models/Menu'
+import { MenuFilter } from 'models/Menu'
 
-import { Role, RoleFilter } from 'models/Role'
+import { RoleFilter } from 'models/Role'
+import { usePermissionActionMappingTable } from "./PermissionActionMappingHook";
+import { permissionActionMappingContentMapper, usePermissionActionMappingModal } from "./PermissionActionMappingHook";
 import { usePermissionFieldMappingTable } from "./PermissionFieldMappingHook";
 import { permissionFieldMappingContentMapper, usePermissionFieldMappingModal } from "./PermissionFieldMappingHook";
 /* end individual import */
 
 const { TabPane } = Tabs;
 
-function PermissionDetailView() {
+function PermissionDetail() {
     const [translate] = useTranslation();
 
     const {
@@ -35,7 +36,6 @@ function PermissionDetailView() {
         handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<Permission>
@@ -45,6 +45,43 @@ function PermissionDetailView() {
         permissionRepository.save,
         PERMISSION_MASTER_ROUTE
     );
+    
+    const {
+        permissionActionMappingFilter,
+        permissionActionMappingContents,
+        setPermissionActionMappingContents,
+        permissionActionMappingContentColumns,
+        permissionActionMappingList,
+        loadPermissionActionMappingList,
+        permissionActionMappingTotal,
+        handleAddPermissionActionMapping,
+        handlePermissionActionMappingTableChange,
+        handlePermissionActionMappingPagination,
+        permissionActionMappingRowSelection,
+        canBulkDeletePermissionActionMapping,
+        handleLocalBulkDeletePermissionActionMapping,
+        permissionActionMappingRef,
+        handleClickPermissionActionMapping,
+        handleImportPermissionActionMapping,
+        handleExportPermissionActionMapping,
+        handleExportTemplatePermissionActionMapping,
+        handleSearchPermissionActionMapping
+    } = usePermissionActionMappingTable(model, handleUpdateNewModel);
+    const {
+        visibleAction,
+        actionFilter,
+        handleUpdateNewActionFilter,
+        handleSearchAction,
+        handleResetActionFilter,
+        loadActionList,
+        setLoadActionList,
+        actionModalFilters,
+        handleOpenActionModal,
+        handleCloseActionModal,
+        handleSaveActionModal,
+        selectedActionList,
+        actionColumns,
+    } = usePermissionActionMappingModal(permissionActionMappingContents, handleSearchPermissionActionMapping);
     
     const {
         permissionFieldMappingFilter,
@@ -65,6 +102,7 @@ function PermissionDetailView() {
         handleImportPermissionFieldMapping,
         handleExportPermissionFieldMapping,
         handleExportTemplatePermissionFieldMapping,
+        handleSearchPermissionFieldMapping
     } = usePermissionFieldMappingTable(model, handleUpdateNewModel);
     const {
         visibleField,
@@ -80,7 +118,7 @@ function PermissionDetailView() {
         handleSaveFieldModal,
         selectedFieldList,
         fieldColumns,
-    } = usePermissionFieldMappingModal(permissionFieldMappingContents);
+    } = usePermissionFieldMappingModal(permissionFieldMappingContents, handleSearchPermissionFieldMapping);
     
 
     return (
@@ -175,6 +213,49 @@ function PermissionDetailView() {
                         <Card className='mr-3'>
                             <Tabs defaultActiveKey='1'>
                                 
+                                <TabPane tab={translate("permissions.permissionActionMappings")}
+                                         key='1'>
+                                    <Row>
+                                        <ContentTable model={model}
+                                                      filter={ permissionActionMappingFilter }
+                                                      list={ permissionActionMappingList }
+                                                      loadingList={loadPermissionActionMappingList}
+                                                      total={ permissionActionMappingTotal }
+                                                      handleTableChange={handlePermissionActionMappingTableChange}
+                                                      rowSelection={ permissionActionMappingRowSelection }
+                                                      handleLocalBulkDelete={ handleLocalBulkDeletePermissionActionMapping }
+                                                      canBulkDelete={ canBulkDeletePermissionActionMapping }
+                                                      handleExportContent={ handleExportPermissionActionMapping }
+                                                      handleExportTemplateContent={ handleExportTemplatePermissionActionMapping }
+                                                      handlePagination={ handlePermissionActionMappingPagination }
+                                                      handleAddContent={ handleAddPermissionActionMapping }
+                                                      ref={ permissionActionMappingRef }
+                                                      handleClick={ handleClickPermissionActionMapping }
+                                                      handleImportContentList={ handleImportPermissionActionMapping }
+                                                      columns={ permissionActionMappingContentColumns }
+                                                      onOpenModal={handleOpenActionModal}
+/>
+                                        <ContentModal content={ permissionActionMappingContents }
+                                                      setContent={ setPermissionActionMappingContents }
+                                                      visible={ visibleAction }
+                                                      filter={ actionFilter }
+                                                      onUpdateNewFilter={ handleUpdateNewActionFilter }
+                                                      onResetFilter={ handleResetActionFilter }
+                                                      onSearch={ handleSearchAction }
+                                                      getList={ permissionRepository.listAction }
+                                                      getTotal={ permissionRepository.countAction }
+                                                      loadList={loadActionList}
+                                                      setLoadList={setLoadActionList}
+                                                      selectedList={selectedActionList}
+                                                      columns={ actionColumns }
+                                                      filterList={ actionModalFilters }
+                                                      mapperField={nameof(model.permissionActionMappings[0].action)}
+                                                      mapper={ permissionActionMappingContentMapper }
+                                                      onClose={ handleCloseActionModal }
+                                                      onSave={ handleSaveActionModal } />
+                                    </Row>
+                                </TabPane>
+                                
                                 <TabPane tab={translate("permissions.permissionFieldMappings")}
                                          key='1'>
                                     <Row>
@@ -233,4 +314,4 @@ function PermissionDetailView() {
     );
 }
 
-export default PermissionDetailView;
+export default PermissionDetail;

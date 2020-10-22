@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -11,31 +11,26 @@ import detailService from "services/pages/detail-service";
 /* begin individual import */
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
-import ContentModal from "components/Utility/ContentModal/ContentModal";
-import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { PermissionContent } from 'models/PermissionContent';
 import { PERMISSION_CONTENT_MASTER_ROUTE } from 'config/route-consts'
 import { permissionContentRepository } from "repositories/permission-content-repository";
 
-import { Field, FieldFilter } from 'models/Field'
+import { FieldFilter } from 'models/Field'
 
-import { Permission, PermissionFilter } from 'models/Permission'
+import { PermissionFilter } from 'models/Permission'
 
-import { PermissionOperator, PermissionOperatorFilter } from 'models/PermissionOperator'
+import { PermissionOperatorFilter } from 'models/PermissionOperator'
 /* end individual import */
 
 const { TabPane } = Tabs;
 
-function PermissionContentDetailView() {
+function PermissionContentDetail() {
     const [translate] = useTranslation();
 
     const {
         model,
-        handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<PermissionContent>
@@ -141,4 +136,4 @@ function PermissionContentDetailView() {
     );
 }
 
-export default PermissionContentDetailView;
+export default PermissionContentDetail;

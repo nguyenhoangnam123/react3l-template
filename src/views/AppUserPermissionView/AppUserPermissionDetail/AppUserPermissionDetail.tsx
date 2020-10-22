@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -12,9 +12,6 @@ import detailService from "services/pages/detail-service";
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
 import InputNumber, { DECIMAL, LONG } from "components/Utility/Input/InputNumber/InputNumber";
-import ContentModal from "components/Utility/ContentModal/ContentModal";
-import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { AppUserPermission } from 'models/AppUserPermission';
 import { APP_USER_PERMISSION_MASTER_ROUTE } from 'config/route-consts'
 import { appUserPermissionRepository } from "repositories/app-user-permission-repository";
@@ -22,15 +19,13 @@ import { appUserPermissionRepository } from "repositories/app-user-permission-re
 
 const { TabPane } = Tabs;
 
-function AppUserPermissionDetailView() {
+function AppUserPermissionDetail() {
     const [translate] = useTranslation();
 
     const {
         model,
-        handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<AppUserPermission>
@@ -108,4 +103,4 @@ function AppUserPermissionDetailView() {
     );
 }
 
-export default AppUserPermissionDetailView;
+export default AppUserPermissionDetail;

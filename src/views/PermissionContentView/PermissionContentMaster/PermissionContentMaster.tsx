@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -33,7 +32,7 @@ import { Permission, PermissionFilter } from "models/Permission";
 import { PermissionOperator, PermissionOperatorFilter } from "models/PermissionOperator";
 /* end individual import */
 
-function PermissionContentMasterView() {
+function PermissionContentMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -99,7 +98,7 @@ function PermissionContentMasterView() {
                     
                     
                     {
-                        title: translate('permissionContents.value'),
+                        title: (<div className='text-center'>{translate('permissionContents.value')}</div>),
                         key: nameof(list[0].value),
                         dataIndex: nameof(list[0].value),
                         sorter: true,
@@ -123,7 +122,7 @@ function PermissionContentMasterView() {
                                 nameof(list[0].field),
                             ),
                         render(field: Field) {
-                            return field?.name;
+                            return field //fill the render field after generate code;
                         }
                     },
                     
@@ -139,7 +138,7 @@ function PermissionContentMasterView() {
                                 nameof(list[0].permission),
                             ),
                         render(permission: Permission) {
-                            return permission?.name;
+                            return permission //fill the render field after generate code;
                         }
                     },
                     
@@ -155,7 +154,7 @@ function PermissionContentMasterView() {
                                 nameof(list[0].permissionOperator),
                             ),
                         render(permissionOperator: PermissionOperator) {
-                            return permissionOperator?.name;
+                            return permissionOperator //fill the render field after generate code;
                         }
                     },
                     
@@ -387,4 +386,4 @@ function PermissionContentMasterView() {
     );
 }
 
-export default PermissionContentMasterView;
+export default PermissionContentMaster;

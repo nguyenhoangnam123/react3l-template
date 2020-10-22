@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -30,7 +29,7 @@ import { FieldType, FieldTypeFilter } from "models/FieldType";
 import { FIELD_TYPE_DETAIL_ROUTE } from "config/route-consts";
 /* end individual import */
 
-function FieldTypeMasterView() {
+function FieldTypeMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -90,7 +89,7 @@ function FieldTypeMasterView() {
                     
                     
                     {
-                        title: translate('fieldTypes.code'),
+                        title: (<div className='text-center'>{translate('fieldTypes.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -104,7 +103,7 @@ function FieldTypeMasterView() {
                     
                     
                     {
-                        title: translate('fieldTypes.name'),
+                        title: (<div className='text-center'>{translate('fieldTypes.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -316,4 +315,4 @@ function FieldTypeMasterView() {
     );
 }
 
-export default FieldTypeMasterView;
+export default FieldTypeMaster;

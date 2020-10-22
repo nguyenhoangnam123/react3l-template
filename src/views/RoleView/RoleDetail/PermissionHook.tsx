@@ -41,7 +41,7 @@ export function usePermissionTable (
     } = detailService.useContentList(
         model,
         setModel,
-        nameof(model.permission),
+        nameof(model.permissions),
     );
     const {
         RenderStringFilter,
@@ -252,6 +252,7 @@ export function usePermissionTable (
         permissionContents,
         setPermissionContents,
         permissionContentColumns,
+        handleSearchPermission: handleSearch
     }
 };
 

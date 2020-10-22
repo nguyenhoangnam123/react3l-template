@@ -41,7 +41,7 @@ export function useAppUserRoleMappingTable (
     } = detailService.useContentList(
         model,
         setModel,
-        nameof(model.appUserRoleMapping),
+        nameof(model.appUserRoleMappings),
     );
     const {
         RenderIdFilter,
@@ -185,10 +185,11 @@ export function useAppUserRoleMappingTable (
         appUserRoleMappingContents,
         setAppUserRoleMappingContents,
         appUserRoleMappingContentColumns,
+        handleSearchAppUserRoleMapping: handleSearch
     }
 };
 
-export function useAppUserRoleMappingModal(source: AppUserRoleMapping) {
+export function useAppUserRoleMappingModal(source: AppUserRoleMapping, handleSource?: () => void) {
 
     const [translate] = useTranslation();
     const [roleFilter, dispatchRoleFilter] = React.useReducer<
@@ -286,7 +287,7 @@ export function useAppUserRoleMappingModal(source: AppUserRoleMapping) {
         handleOpenModal,
         handleCloseModal,
         handleSaveModal,
-    } = tableService.useContenModal(handleSearch);
+    } = tableService.useContenModal(handleSource);
 
     React.useEffect(() => {
         if (loadControl) {
@@ -319,10 +320,14 @@ export const appUserRoleMappingContentMapper = (model: AppUserRoleMapping | Role
         const { role } = model;
         return {
           ...model,
-        roleappUserId: role?.appUserId,
-        roleroleId: role?.roleId,
-        roleappUser: role?.appUser,
-        rolerole: role?.role,
+        roleId: role?.id,
+        roleCode: role?.code,
+        roleName: role?.name,
+        roleStatusId: role?.statusId,
+        roleUsed: role?.used,
+        roleStatus: role?.status,
+        roleAppUserRoleMappings: role?.appUserRoleMappings,
+        rolePermissions: role?.permissions,
         };
     }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {renderRoutes, RouteConfigComponentProps} from 'react-router-config';
-import {Switch, withRouter} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import './MenuView.scss';
 import MenuDetail from './MenuDetail/MenuDetail';
 import MenuMaster from './MenuMaster/MenuMaster';

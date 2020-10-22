@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -31,7 +30,7 @@ import { ROLE_DETAIL_ROUTE } from "config/route-consts";
 import { Status, StatusFilter } from "models/Status";
 /* end individual import */
 
-function RoleMasterView() {
+function RoleMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -91,7 +90,7 @@ function RoleMasterView() {
                     
                     
                     {
-                        title: translate('roles.code'),
+                        title: (<div className='text-center'>{translate('roles.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -105,7 +104,7 @@ function RoleMasterView() {
                     
                     
                     {
-                        title: translate('roles.name'),
+                        title: (<div className='text-center'>{translate('roles.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -120,17 +119,6 @@ function RoleMasterView() {
                     
                     
                     
-                    {
-                        title: translate('roles.used'),
-                        key: nameof(list[0].used),
-                        dataIndex: nameof(list[0].used),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Role, RoleFilter>
-                            (
-                                filter,
-                                nameof(list[0].used),
-                            ),
-                    },
                     
                     
                     
@@ -145,11 +133,9 @@ function RoleMasterView() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status?.name;
+                            return status //fill the render field after generate code;
                         }
                     },
-                    
-                    
                     
                     {
                         title: translate("general.actions.label"),
@@ -370,4 +356,4 @@ function RoleMasterView() {
     );
 }
 
-export default RoleMasterView;
+export default RoleMaster;

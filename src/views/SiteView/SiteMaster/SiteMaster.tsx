@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -30,7 +29,7 @@ import { Site, SiteFilter } from "models/Site";
 import { SITE_DETAIL_ROUTE } from "config/route-consts";
 /* end individual import */
 
-function SiteMasterView() {
+function SiteMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -90,7 +89,7 @@ function SiteMasterView() {
                     
                     
                     {
-                        title: translate('sites.code'),
+                        title: (<div className='text-center'>{translate('sites.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -104,7 +103,7 @@ function SiteMasterView() {
                     
                     
                     {
-                        title: translate('sites.name'),
+                        title: (<div className='text-center'>{translate('sites.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -118,7 +117,7 @@ function SiteMasterView() {
                     
                     
                     {
-                        title: translate('sites.icon'),
+                        title: (<div className='text-center'>{translate('sites.icon')}</div>),
                         key: nameof(list[0].icon),
                         dataIndex: nameof(list[0].icon),
                         sorter: true,
@@ -132,7 +131,7 @@ function SiteMasterView() {
                     
                     
                     {
-                        title: translate('sites.logo'),
+                        title: (<div className='text-center'>{translate('sites.logo')}</div>),
                         key: nameof(list[0].logo),
                         dataIndex: nameof(list[0].logo),
                         sorter: true,
@@ -145,17 +144,6 @@ function SiteMasterView() {
                     
                     
                     
-                    {
-                        title: translate('sites.isDisplay'),
-                        key: nameof(list[0].isDisplay),
-                        dataIndex: nameof(list[0].isDisplay),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Site, SiteFilter>
-                            (
-                                filter,
-                                nameof(list[0].isDisplay),
-                            ),
-                    },
                     
                     
                     
@@ -393,4 +381,4 @@ function SiteMasterView() {
     );
 }
 
-export default SiteMasterView;
+export default SiteMaster;

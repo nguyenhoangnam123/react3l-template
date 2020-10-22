@@ -4,11 +4,9 @@ import { Model } from '@react3l/react3l/core/model';
 import { Descriptions } from 'antd';
 import Modal from 'components/Utility/Modal/Modal';
 import { TFunction } from 'i18next';
-import Table from "antd/lib/table";
 import moment from "moment";
-import nameof from "ts-nameof.macro";
-// import { useGlobal } from 'reactn';
 // import ChatBox from 'components/Utility/ChatBox/ChatBox';
+// import { useGlobal } from 'reactn';
 // import { AppUser } from 'models/AppUser';
 // import {disscusionRepository} from 'repositories/disscusion-repository';
 // import { appUserRepository } from 'repositories/app-user-repository';
@@ -16,38 +14,15 @@ import nameof from "ts-nameof.macro";
 
 /* begin individual import */
 import { AppUser } from 'models/AppUser';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import { Role } from 'models/Role'
-
+import nameof from "ts-nameof.macro";
+import Table from "antd/lib/table";
+import { Organization } from 'models/Organization';
+import { Position } from 'models/Position';
+import { Province } from 'models/Province';
+import { Sex } from 'models/Sex';
+import { Status } from 'models/Status';
+import { AppUserRoleMapping } from 'models/AppUserRoleMapping';
+import { Role } from 'models/Role';
 
 
 /* end individual import */
@@ -213,18 +188,18 @@ interface AppUserPreviewProps<T extends Model>
                             </div>
                             <div className="preview__content">
                                 <Table tableLayout='fixed'
-                                       rowKey={nameof(previewModel.appUserRoleMappingsMappings[0].id)}
+                                       rowKey={nameof(previewModel.appUserRoleMappings[0].id)}
                                        columns={[
                                        
                                        
                                        
                                        
                                        {
-                                       title: translate('appUserRoleMappingMappings.role'),
+                                       title: translate('appUserRoleMappings.role'),
                                        dataIndex: 'role' ,
                                        key: 'role' ,
                                        render(role: Role){
-                                       return role?.name;
+                                       return role; // fill render field after generate
                                        }
                                        },
                                        ]}
@@ -235,15 +210,15 @@ interface AppUserPreviewProps<T extends Model>
                         <div className="preview__footer"></div>
                     </div>
                     <div className="preview__right-side">
-                        {/* chatBox area, enable if it's necessary */}
-                        {/* <ChatBox getMessages={disscusionRepository.list}
-                                     countMessages={disscusionRepository.count}
-                                     postMessage={disscusionRepository.create}
-                                     deleteMessage={disscusionRepository.delete}
-                                     attachFile={disscusionRepository.import}
-                                     suggestList={appUserRepository.list}
-                                     discussionId={previewModel.rowId}
-                                     userInfo={userInfo} /> */}
+                         {/* <ChatBox getMessages={disscusionRepository.list}
+                                 countMessages={disscusionRepository.count}
+                                 postMessage={disscusionRepository.create}
+                                 deleteMessage={disscusionRepository.delete}
+                                 attachFile={disscusionRepository.import}
+                                 suggestList={appUserRepository.list}
+                                 discussionId={previewModel.rowId}
+                                 userInfo={userInfo} />
+                        */}
                     </div>
                 </div>
                 }

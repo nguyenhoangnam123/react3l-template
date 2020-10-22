@@ -40,7 +40,7 @@ export function useFieldTable(model: Menu, setModel: (data: Menu) => void) {
   const {
     content: fieldContents,
     setContent: setFieldContents,
-  } = detailService.useContentList(model, setModel, nameof(model.field));
+  } = detailService.useContentList(model, setModel, nameof(model.fields));
   const {
     RenderStringFilter,
     RenderIdFilter,
@@ -213,5 +213,6 @@ export function useFieldTable(model: Menu, setModel: (data: Menu) => void) {
     fieldContents,
     setFieldContents,
     fieldContentColumns,
+    handleSearchField: handleSearch,
   };
 }

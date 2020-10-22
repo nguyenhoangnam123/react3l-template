@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -13,18 +13,19 @@ import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
 import ContentModal from "components/Utility/ContentModal/ContentModal";
 import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { Role } from 'models/Role';
 import { ROLE_MASTER_ROUTE } from 'config/route-consts'
 import { roleRepository } from "repositories/role-repository";
 
-import { Status, StatusFilter } from 'models/Status'
+import { StatusFilter } from 'models/Status'
+import { useAppUserRoleMappingTable } from "./AppUserRoleMappingHook";
+import { appUserRoleMappingContentMapper, useAppUserRoleMappingModal } from "./AppUserRoleMappingHook";
 import { usePermissionTable } from "./PermissionHook";
 /* end individual import */
 
 const { TabPane } = Tabs;
 
-function RoleDetailView() {
+function RoleDetail() {
     const [translate] = useTranslation();
 
     const {
@@ -32,7 +33,6 @@ function RoleDetailView() {
         handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<Role>
@@ -42,6 +42,43 @@ function RoleDetailView() {
         roleRepository.save,
         ROLE_MASTER_ROUTE
     );
+    
+    const {
+        appUserRoleMappingFilter,
+        appUserRoleMappingContents,
+        setAppUserRoleMappingContents,
+        appUserRoleMappingContentColumns,
+        appUserRoleMappingList,
+        loadAppUserRoleMappingList,
+        appUserRoleMappingTotal,
+        handleAddAppUserRoleMapping,
+        handleAppUserRoleMappingTableChange,
+        handleAppUserRoleMappingPagination,
+        appUserRoleMappingRowSelection,
+        canBulkDeleteAppUserRoleMapping,
+        handleLocalBulkDeleteAppUserRoleMapping,
+        appUserRoleMappingRef,
+        handleClickAppUserRoleMapping,
+        handleImportAppUserRoleMapping,
+        handleExportAppUserRoleMapping,
+        handleExportTemplateAppUserRoleMapping,
+        handleSearchAppUserRoleMapping
+    } = useAppUserRoleMappingTable(model, handleUpdateNewModel);
+    const {
+        visibleAppUser,
+        appUserFilter,
+        handleUpdateNewAppUserFilter,
+        handleSearchAppUser,
+        handleResetAppUserFilter,
+        loadAppUserList,
+        setLoadAppUserList,
+        appUserModalFilters,
+        handleOpenAppUserModal,
+        handleCloseAppUserModal,
+        handleSaveAppUserModal,
+        selectedAppUserList,
+        appUserColumns,
+    } = useAppUserRoleMappingModal(appUserRoleMappingContents, handleSearchAppUserRoleMapping);
     
     const {
         permissionFilter,
@@ -62,6 +99,7 @@ function RoleDetailView() {
         handleImportPermission,
         handleExportPermission,
         handleExportTemplatePermission,
+        handleSearchPermission
     } = usePermissionTable(model, handleUpdateNewModel);
     
 
@@ -149,6 +187,49 @@ function RoleDetailView() {
                         <Card className='mr-3'>
                             <Tabs defaultActiveKey='1'>
                                 
+                                <TabPane tab={translate("roles.appUserRoleMappings")}
+                                         key='1'>
+                                    <Row>
+                                        <ContentTable model={model}
+                                                      filter={ appUserRoleMappingFilter }
+                                                      list={ appUserRoleMappingList }
+                                                      loadingList={loadAppUserRoleMappingList}
+                                                      total={ appUserRoleMappingTotal }
+                                                      handleTableChange={handleAppUserRoleMappingTableChange}
+                                                      rowSelection={ appUserRoleMappingRowSelection }
+                                                      handleLocalBulkDelete={ handleLocalBulkDeleteAppUserRoleMapping }
+                                                      canBulkDelete={ canBulkDeleteAppUserRoleMapping }
+                                                      handleExportContent={ handleExportAppUserRoleMapping }
+                                                      handleExportTemplateContent={ handleExportTemplateAppUserRoleMapping }
+                                                      handlePagination={ handleAppUserRoleMappingPagination }
+                                                      handleAddContent={ handleAddAppUserRoleMapping }
+                                                      ref={ appUserRoleMappingRef }
+                                                      handleClick={ handleClickAppUserRoleMapping }
+                                                      handleImportContentList={ handleImportAppUserRoleMapping }
+                                                      columns={ appUserRoleMappingContentColumns }
+                                                      onOpenModal={handleOpenAppUserModal}
+/>
+                                        <ContentModal content={ appUserRoleMappingContents }
+                                                      setContent={ setAppUserRoleMappingContents }
+                                                      visible={ visibleAppUser }
+                                                      filter={ appUserFilter }
+                                                      onUpdateNewFilter={ handleUpdateNewAppUserFilter }
+                                                      onResetFilter={ handleResetAppUserFilter }
+                                                      onSearch={ handleSearchAppUser }
+                                                      getList={ roleRepository.listAppUser }
+                                                      getTotal={ roleRepository.countAppUser }
+                                                      loadList={loadAppUserList}
+                                                      setLoadList={setLoadAppUserList}
+                                                      selectedList={selectedAppUserList}
+                                                      columns={ appUserColumns }
+                                                      filterList={ appUserModalFilters }
+                                                      mapperField={nameof(model.appUserRoleMappings[0].appUser)}
+                                                      mapper={ appUserRoleMappingContentMapper }
+                                                      onClose={ handleCloseAppUserModal }
+                                                      onSave={ handleSaveAppUserModal } />
+                                    </Row>
+                                </TabPane>
+                                
                                 <TabPane tab={translate("roles.permissions")}
                                          key='1'>
                                     <Row>
@@ -189,4 +270,4 @@ function RoleDetailView() {
     );
 }
 
-export default RoleDetailView;
+export default RoleDetail;

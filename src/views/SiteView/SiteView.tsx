@@ -1,6 +1,6 @@
 import React from 'react';
 import {renderRoutes, RouteConfigComponentProps} from 'react-router-config';
-import {Switch, withRouter} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import './SiteView.scss';
 import SiteDetail from './SiteDetail/SiteDetail';
 import SiteMaster from './SiteMaster/SiteMaster';

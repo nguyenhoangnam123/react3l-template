@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -24,6 +23,7 @@ import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/Ad
 import { IdFilter } from "@react3l/advanced-filters";
 import AdvanceDateFilter from "components/Utility/AdvanceFilter/AdvanceDateFilter/AdvanceDateFilter";
 import { DateFilter } from "@react3l/advanced-filters";
+import { formatDateTime } from "helpers/date-time";
 /* end filter import */
 
 /* begin individual import */
@@ -32,7 +32,7 @@ import { EventMessage, EventMessageFilter } from "models/EventMessage";
 import { EVENT_MESSAGE_DETAIL_ROUTE } from "config/route-consts";
 /* end individual import */
 
-function EventMessageMasterView() {
+function EventMessageMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -92,7 +92,7 @@ function EventMessageMasterView() {
                     
                     
                     {
-                        title: translate('eventMessages.time'),
+                        title: (<div className='text-center'>{translate('eventMessages.time')}</div>),
                         key: nameof(list[0].time),
                         dataIndex: nameof(list[0].time),
                         sorter: true,
@@ -101,6 +101,9 @@ function EventMessageMasterView() {
                                 filter,
                                 nameof(list[0].time),
                             ),
+                        render(...params: [Moment, EventMessage, number]) {
+                            return <div className='text-center'>{formatDateTime(params[0])}</div>;
+                        },
                     },
                     
                     
@@ -108,7 +111,7 @@ function EventMessageMasterView() {
                     
                     
                     {
-                        title: translate('eventMessages.entityName'),
+                        title: (<div className='text-center'>{translate('eventMessages.entityName')}</div>),
                         key: nameof(list[0].entityName),
                         dataIndex: nameof(list[0].entityName),
                         sorter: true,
@@ -122,7 +125,7 @@ function EventMessageMasterView() {
                     
                     
                     {
-                        title: translate('eventMessages.content'),
+                        title: (<div className='text-center'>{translate('eventMessages.content')}</div>),
                         key: nameof(list[0].content),
                         dataIndex: nameof(list[0].content),
                         sorter: true,
@@ -343,4 +346,4 @@ function EventMessageMasterView() {
     );
 }
 
-export default EventMessageMasterView;
+export default EventMessageMaster;

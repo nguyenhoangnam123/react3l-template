@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -11,9 +11,6 @@ import detailService from "services/pages/detail-service";
 /* begin individual import */
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
-import ContentModal from "components/Utility/ContentModal/ContentModal";
-import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { Theme } from 'models/Theme';
 import { THEME_MASTER_ROUTE } from 'config/route-consts'
 import { themeRepository } from "repositories/theme-repository";
@@ -21,15 +18,13 @@ import { themeRepository } from "repositories/theme-repository";
 
 const { TabPane } = Tabs;
 
-function ThemeDetailView() {
+function ThemeDetail() {
     const [translate] = useTranslation();
 
     const {
         model,
-        handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<Theme>
@@ -106,4 +101,4 @@ function ThemeDetailView() {
     );
 }
 
-export default ThemeDetailView;
+export default ThemeDetail;

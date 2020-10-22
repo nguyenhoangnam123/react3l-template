@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -31,7 +30,7 @@ import { ACTION_DETAIL_ROUTE } from "config/route-consts";
 import { Menu, MenuFilter } from "models/Menu";
 /* end individual import */
 
-function ActionMasterView() {
+function ActionMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -91,7 +90,7 @@ function ActionMasterView() {
                     
                     
                     {
-                        title: translate('actions.name'),
+                        title: (<div className='text-center'>{translate('actions.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -106,17 +105,6 @@ function ActionMasterView() {
                     
                     
                     
-                    {
-                        title: translate('actions.isDeleted'),
-                        key: nameof(list[0].isDeleted),
-                        dataIndex: nameof(list[0].isDeleted),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Action, ActionFilter>
-                            (
-                                filter,
-                                nameof(list[0].isDeleted),
-                            ),
-                    },
                     
                     
                     
@@ -131,7 +119,7 @@ function ActionMasterView() {
                                 nameof(list[0].menu),
                             ),
                         render(menu: Menu) {
-                            return menu?.name;
+                            return menu //fill the render field after generate code;
                         }
                     },
                     
@@ -344,4 +332,4 @@ function ActionMasterView() {
     );
 }
 
-export default ActionMasterView;
+export default ActionMaster;

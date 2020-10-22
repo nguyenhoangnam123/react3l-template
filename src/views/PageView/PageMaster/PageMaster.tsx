@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -30,7 +29,7 @@ import { Page, PageFilter } from "models/Page";
 import { PAGE_DETAIL_ROUTE } from "config/route-consts";
 /* end individual import */
 
-function PageMasterView() {
+function PageMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -90,7 +89,7 @@ function PageMasterView() {
                     
                     
                     {
-                        title: translate('pages.name'),
+                        title: (<div className='text-center'>{translate('pages.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -104,7 +103,7 @@ function PageMasterView() {
                     
                     
                     {
-                        title: translate('pages.path'),
+                        title: (<div className='text-center'>{translate('pages.path')}</div>),
                         key: nameof(list[0].path),
                         dataIndex: nameof(list[0].path),
                         sorter: true,
@@ -117,17 +116,6 @@ function PageMasterView() {
                     
                     
                     
-                    {
-                        title: translate('pages.isDeleted'),
-                        key: nameof(list[0].isDeleted),
-                        dataIndex: nameof(list[0].isDeleted),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Page, PageFilter>
-                            (
-                                filter,
-                                nameof(list[0].isDeleted),
-                            ),
-                    },
                     
                     
                     
@@ -334,4 +322,4 @@ function PageMasterView() {
     );
 }
 
-export default PageMasterView;
+export default PageMaster;

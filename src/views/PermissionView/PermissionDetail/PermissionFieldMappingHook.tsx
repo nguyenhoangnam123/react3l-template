@@ -41,7 +41,7 @@ export function usePermissionFieldMappingTable (
     } = detailService.useContentList(
         model,
         setModel,
-        nameof(model.permissionFieldMapping),
+        nameof(model.permissionFieldMappings),
     );
     const {
         RenderStringFilter,
@@ -217,10 +217,11 @@ export function usePermissionFieldMappingTable (
         permissionFieldMappingContents,
         setPermissionFieldMappingContents,
         permissionFieldMappingContentColumns,
+        handleSearchPermissionFieldMapping: handleSearch
     }
 };
 
-export function usePermissionFieldMappingModal(source: PermissionFieldMapping) {
+export function usePermissionFieldMappingModal(source: PermissionFieldMapping, handleSource?: () => void) {
 
     const [translate] = useTranslation();
     const [fieldFilter, dispatchFieldFilter] = React.useReducer<
@@ -309,7 +310,7 @@ export function usePermissionFieldMappingModal(source: PermissionFieldMapping) {
         handleOpenModal,
         handleCloseModal,
         handleSaveModal,
-    } = tableService.useContenModal(handleSearch);
+    } = tableService.useContenModal(handleSource);
 
     React.useEffect(() => {
         if (loadControl) {
@@ -342,11 +343,15 @@ export const permissionFieldMappingContentMapper = (model: PermissionFieldMappin
         const { field } = model;
         return {
           ...model,
-        fieldpermissionId: field?.permissionId,
-        fieldfieldId: field?.fieldId,
-        fieldvalue: field?.value,
-        fieldfield: field?.field,
-        fieldpermission: field?.permission,
+        fieldId: field?.id,
+        fieldName: field?.name,
+        fieldFieldTypeId: field?.fieldTypeId,
+        fieldMenuId: field?.menuId,
+        fieldIsDeleted: field?.isDeleted,
+        fieldFieldType: field?.fieldType,
+        fieldMenu: field?.menu,
+        fieldPermissionContents: field?.permissionContents,
+        fieldPermissionFieldMappings: field?.permissionFieldMappings,
         };
     }
 

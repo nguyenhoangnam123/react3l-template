@@ -1,6 +1,6 @@
 import React from 'react';
 import {renderRoutes, RouteConfigComponentProps} from 'react-router-config';
-import {Switch, withRouter} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import './ActionView.scss';
 import ActionDetail from './ActionDetail/ActionDetail';
 import ActionMaster from './ActionMaster/ActionMaster';

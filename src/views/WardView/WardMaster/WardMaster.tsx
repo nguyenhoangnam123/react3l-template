@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -24,6 +23,7 @@ import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/Ad
 import { IdFilter } from "@react3l/advanced-filters";
 import AdvanceNumberFilter from "components/Utility/AdvanceFilter/AdvanceNumberFilter/AdvanceNumberFilter";
 import { NumberFilter } from "@react3l/advanced-filters";
+import { formatNumber } from "helpers/number";
 /* end filter import */
 
 /* begin individual import */
@@ -34,7 +34,7 @@ import { District, DistrictFilter } from "models/District";
 import { Status, StatusFilter } from "models/Status";
 /* end individual import */
 
-function WardMasterView() {
+function WardMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -94,7 +94,7 @@ function WardMasterView() {
                     
                     
                     {
-                        title: translate('wards.code'),
+                        title: (<div className='text-center'>{translate('wards.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -108,7 +108,7 @@ function WardMasterView() {
                     
                     
                     {
-                        title: translate('wards.name'),
+                        title: (<div className='text-center'>{translate('wards.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -122,7 +122,7 @@ function WardMasterView() {
                     
                     
                     {
-                        title: translate('wards.priority'),
+                        title: (<div className='text-center'>{translate('wards.priority')}</div>),
                         key: nameof(list[0].priority),
                         dataIndex: nameof(list[0].priority),
                         sorter: true,
@@ -131,6 +131,9 @@ function WardMasterView() {
                                 filter,
                                 nameof(list[0].priority),
                             ),
+                        render(...params: [number, Ward, number]) {
+                            return <div className='text-right'>{formatNumber(params[0])}</div>;
+                        },
                     },
                     
                     
@@ -147,17 +150,6 @@ function WardMasterView() {
                     
                     
                     
-                    {
-                        title: translate('wards.used'),
-                        key: nameof(list[0].used),
-                        dataIndex: nameof(list[0].used),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Ward, WardFilter>
-                            (
-                                filter,
-                                nameof(list[0].used),
-                            ),
-                    },
                     
                     
                     
@@ -172,7 +164,7 @@ function WardMasterView() {
                                 nameof(list[0].district),
                             ),
                         render(district: District) {
-                            return district?.name;
+                            return district //fill the render field after generate code;
                         }
                     },
                     
@@ -188,7 +180,7 @@ function WardMasterView() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status?.name;
+                            return status //fill the render field after generate code;
                         }
                     },
                     
@@ -443,4 +435,4 @@ function WardMasterView() {
     );
 }
 
-export default WardMasterView;
+export default WardMaster;

@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -24,6 +23,7 @@ import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/Ad
 import { IdFilter } from "@react3l/advanced-filters";
 import AdvanceNumberFilter from "components/Utility/AdvanceFilter/AdvanceNumberFilter/AdvanceNumberFilter";
 import { NumberFilter } from "@react3l/advanced-filters";
+import { formatNumber } from "helpers/number";
 /* end filter import */
 
 /* begin individual import */
@@ -32,7 +32,7 @@ import { AppUserPermission, AppUserPermissionFilter } from "models/AppUserPermis
 import { APP_USER_PERMISSION_DETAIL_ROUTE } from "config/route-consts";
 /* end individual import */
 
-function AppUserPermissionMasterView() {
+function AppUserPermissionMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -94,7 +94,7 @@ function AppUserPermissionMasterView() {
                     
                     
                     {
-                        title: translate('appUserPermissions.path'),
+                        title: (<div className='text-center'>{translate('appUserPermissions.path')}</div>),
                         key: nameof(list[0].path),
                         dataIndex: nameof(list[0].path),
                         sorter: true,
@@ -108,7 +108,7 @@ function AppUserPermissionMasterView() {
                     
                     
                     {
-                        title: translate('appUserPermissions.count'),
+                        title: (<div className='text-center'>{translate('appUserPermissions.count')}</div>),
                         key: nameof(list[0].count),
                         dataIndex: nameof(list[0].count),
                         sorter: true,
@@ -117,6 +117,9 @@ function AppUserPermissionMasterView() {
                                 filter,
                                 nameof(list[0].count),
                             ),
+                        render(...params: [number, AppUserPermission, number]) {
+                            return <div className='text-right'>{formatNumber(params[0])}</div>;
+                        },
                     },
                     
                     
@@ -315,4 +318,4 @@ function AppUserPermissionMasterView() {
     );
 }
 
-export default AppUserPermissionMasterView;
+export default AppUserPermissionMaster;

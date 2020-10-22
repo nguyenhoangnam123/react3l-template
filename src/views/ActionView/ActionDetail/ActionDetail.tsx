@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -11,27 +11,22 @@ import detailService from "services/pages/detail-service";
 /* begin individual import */
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
-import ContentModal from "components/Utility/ContentModal/ContentModal";
-import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { Action } from 'models/Action';
 import { ACTION_MASTER_ROUTE } from 'config/route-consts'
 import { actionRepository } from "repositories/action-repository";
 
-import { Menu, MenuFilter } from 'models/Menu'
+import { MenuFilter } from 'models/Menu'
 /* end individual import */
 
 const { TabPane } = Tabs;
 
-function ActionDetailView() {
+function ActionDetail() {
     const [translate] = useTranslation();
 
     const {
         model,
-        handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<Action>
@@ -119,4 +114,4 @@ function ActionDetailView() {
     );
 }
 
-export default ActionDetailView;
+export default ActionDetail;

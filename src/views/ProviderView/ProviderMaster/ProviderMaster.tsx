@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -30,7 +29,7 @@ import { Provider, ProviderFilter } from "models/Provider";
 import { PROVIDER_DETAIL_ROUTE } from "config/route-consts";
 /* end individual import */
 
-function ProviderMasterView() {
+function ProviderMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -90,7 +89,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.name'),
+                        title: (<div className='text-center'>{translate('providers.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -104,7 +103,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.googleRedirectUri'),
+                        title: (<div className='text-center'>{translate('providers.googleRedirectUri')}</div>),
                         key: nameof(list[0].googleRedirectUri),
                         dataIndex: nameof(list[0].googleRedirectUri),
                         sorter: true,
@@ -118,7 +117,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.aDIP'),
+                        title: (<div className='text-center'>{translate('providers.aDIP')}</div>),
                         key: nameof(list[0].aDIP),
                         dataIndex: nameof(list[0].aDIP),
                         sorter: true,
@@ -132,7 +131,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.aDUsername'),
+                        title: (<div className='text-center'>{translate('providers.aDUsername')}</div>),
                         key: nameof(list[0].aDUsername),
                         dataIndex: nameof(list[0].aDUsername),
                         sorter: true,
@@ -146,7 +145,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.aDPassword'),
+                        title: (<div className='text-center'>{translate('providers.aDPassword')}</div>),
                         key: nameof(list[0].aDPassword),
                         dataIndex: nameof(list[0].aDPassword),
                         sorter: true,
@@ -160,7 +159,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.googleClient'),
+                        title: (<div className='text-center'>{translate('providers.googleClient')}</div>),
                         key: nameof(list[0].googleClient),
                         dataIndex: nameof(list[0].googleClient),
                         sorter: true,
@@ -174,7 +173,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.googleClientSecret'),
+                        title: (<div className='text-center'>{translate('providers.googleClientSecret')}</div>),
                         key: nameof(list[0].googleClientSecret),
                         dataIndex: nameof(list[0].googleClientSecret),
                         sorter: true,
@@ -188,7 +187,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.microsoftClient'),
+                        title: (<div className='text-center'>{translate('providers.microsoftClient')}</div>),
                         key: nameof(list[0].microsoftClient),
                         dataIndex: nameof(list[0].microsoftClient),
                         sorter: true,
@@ -202,7 +201,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.microsoftClientSecret'),
+                        title: (<div className='text-center'>{translate('providers.microsoftClientSecret')}</div>),
                         key: nameof(list[0].microsoftClientSecret),
                         dataIndex: nameof(list[0].microsoftClientSecret),
                         sorter: true,
@@ -216,7 +215,7 @@ function ProviderMasterView() {
                     
                     
                     {
-                        title: translate('providers.microsoftRedirectUri'),
+                        title: (<div className='text-center'>{translate('providers.microsoftRedirectUri')}</div>),
                         key: nameof(list[0].microsoftRedirectUri),
                         dataIndex: nameof(list[0].microsoftRedirectUri),
                         sorter: true,
@@ -534,4 +533,4 @@ function ProviderMasterView() {
     );
 }
 
-export default ProviderMasterView;
+export default ProviderMaster;

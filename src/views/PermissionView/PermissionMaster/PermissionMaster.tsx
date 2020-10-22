@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -32,7 +31,7 @@ import { Menu, MenuFilter } from "models/Menu";
 import { Role, RoleFilter } from "models/Role";
 /* end individual import */
 
-function PermissionMasterView() {
+function PermissionMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -92,7 +91,7 @@ function PermissionMasterView() {
                     
                     
                     {
-                        title: translate('permissions.code'),
+                        title: (<div className='text-center'>{translate('permissions.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -106,7 +105,7 @@ function PermissionMasterView() {
                     
                     
                     {
-                        title: translate('permissions.name'),
+                        title: (<div className='text-center'>{translate('permissions.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -136,7 +135,7 @@ function PermissionMasterView() {
                                 nameof(list[0].menu),
                             ),
                         render(menu: Menu) {
-                            return menu?.name;
+                            return menu //fill the render field after generate code;
                         }
                     },
                     
@@ -152,11 +151,9 @@ function PermissionMasterView() {
                                 nameof(list[0].role),
                             ),
                         render(role: Role) {
-                            return role?.name;
+                            return role //fill the render field after generate code;
                         }
                     },
-                    
-                    
                     
                     
                     
@@ -390,4 +387,4 @@ function PermissionMasterView() {
     );
 }
 
-export default PermissionMasterView;
+export default PermissionMaster;

@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -24,8 +23,10 @@ import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/Ad
 import { IdFilter } from "@react3l/advanced-filters";
 import AdvanceNumberFilter from "components/Utility/AdvanceFilter/AdvanceNumberFilter/AdvanceNumberFilter";
 import { NumberFilter } from "@react3l/advanced-filters";
+import { formatNumber } from "helpers/number";
 import AdvanceDateFilter from "components/Utility/AdvanceFilter/AdvanceDateFilter/AdvanceDateFilter";
 import { DateFilter } from "@react3l/advanced-filters";
+import { formatDateTime } from "helpers/date-time";
 /* end filter import */
 
 /* begin individual import */
@@ -39,7 +40,7 @@ import { Sex, SexFilter } from "models/Sex";
 import { Status, StatusFilter } from "models/Status";
 /* end individual import */
 
-function AppUserMasterView() {
+function AppUserMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -99,7 +100,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.username'),
+                        title: (<div className='text-center'>{translate('appUsers.username')}</div>),
                         key: nameof(list[0].username),
                         dataIndex: nameof(list[0].username),
                         sorter: true,
@@ -113,7 +114,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.password'),
+                        title: (<div className='text-center'>{translate('appUsers.password')}</div>),
                         key: nameof(list[0].password),
                         dataIndex: nameof(list[0].password),
                         sorter: true,
@@ -127,7 +128,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.otpCode'),
+                        title: (<div className='text-center'>{translate('appUsers.otpCode')}</div>),
                         key: nameof(list[0].otpCode),
                         dataIndex: nameof(list[0].otpCode),
                         sorter: true,
@@ -141,7 +142,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.otpExpired'),
+                        title: (<div className='text-center'>{translate('appUsers.otpExpired')}</div>),
                         key: nameof(list[0].otpExpired),
                         dataIndex: nameof(list[0].otpExpired),
                         sorter: true,
@@ -150,12 +151,15 @@ function AppUserMasterView() {
                                 filter,
                                 nameof(list[0].otpExpired),
                             ),
+                        render(...params: [Moment, AppUser, number]) {
+                            return <div className='text-center'>{formatDateTime(params[0])}</div>;
+                        },
                     },
                     
                     
                     
                     {
-                        title: translate('appUsers.displayName'),
+                        title: (<div className='text-center'>{translate('appUsers.displayName')}</div>),
                         key: nameof(list[0].displayName),
                         dataIndex: nameof(list[0].displayName),
                         sorter: true,
@@ -169,7 +173,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.address'),
+                        title: (<div className='text-center'>{translate('appUsers.address')}</div>),
                         key: nameof(list[0].address),
                         dataIndex: nameof(list[0].address),
                         sorter: true,
@@ -183,7 +187,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.email'),
+                        title: (<div className='text-center'>{translate('appUsers.email')}</div>),
                         key: nameof(list[0].email),
                         dataIndex: nameof(list[0].email),
                         sorter: true,
@@ -197,7 +201,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.phone'),
+                        title: (<div className='text-center'>{translate('appUsers.phone')}</div>),
                         key: nameof(list[0].phone),
                         dataIndex: nameof(list[0].phone),
                         sorter: true,
@@ -215,7 +219,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.department'),
+                        title: (<div className='text-center'>{translate('appUsers.department')}</div>),
                         key: nameof(list[0].department),
                         dataIndex: nameof(list[0].department),
                         sorter: true,
@@ -241,7 +245,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.avatar'),
+                        title: (<div className='text-center'>{translate('appUsers.avatar')}</div>),
                         key: nameof(list[0].avatar),
                         dataIndex: nameof(list[0].avatar),
                         sorter: true,
@@ -255,7 +259,7 @@ function AppUserMasterView() {
                     
                     
                     {
-                        title: translate('appUsers.birthday'),
+                        title: (<div className='text-center'>{translate('appUsers.birthday')}</div>),
                         key: nameof(list[0].birthday),
                         dataIndex: nameof(list[0].birthday),
                         sorter: true,
@@ -264,28 +268,20 @@ function AppUserMasterView() {
                                 filter,
                                 nameof(list[0].birthday),
                             ),
+                        render(...params: [Moment, AppUser, number]) {
+                            return <div className='text-center'>{formatDateTime(params[0])}</div>;
+                        },
                     },
                     
                     
                     
                     
                     
-                    {
-                        title: translate('appUsers.used'),
-                        key: nameof(list[0].used),
-                        dataIndex: nameof(list[0].used),
-                        sorter: true,
-                        sortOrder: getAntOrderType<AppUser, AppUserFilter>
-                            (
-                                filter,
-                                nameof(list[0].used),
-                            ),
-                    },
                     
                     
                     
                     {
-                        title: translate('appUsers.longitude'),
+                        title: (<div className='text-center'>{translate('appUsers.longitude')}</div>),
                         key: nameof(list[0].longitude),
                         dataIndex: nameof(list[0].longitude),
                         sorter: true,
@@ -294,12 +290,15 @@ function AppUserMasterView() {
                                 filter,
                                 nameof(list[0].longitude),
                             ),
+                        render(...params: [number, AppUser, number]) {
+                            return <div className='text-right'>{formatNumber(params[0])}</div>;
+                        },
                     },
                     
                     
                     
                     {
-                        title: translate('appUsers.latitude'),
+                        title: (<div className='text-center'>{translate('appUsers.latitude')}</div>),
                         key: nameof(list[0].latitude),
                         dataIndex: nameof(list[0].latitude),
                         sorter: true,
@@ -308,6 +307,9 @@ function AppUserMasterView() {
                                 filter,
                                 nameof(list[0].latitude),
                             ),
+                        render(...params: [number, AppUser, number]) {
+                            return <div className='text-right'>{formatNumber(params[0])}</div>;
+                        },
                     },
                     
                     
@@ -323,7 +325,7 @@ function AppUserMasterView() {
                                 nameof(list[0].organization),
                             ),
                         render(organization: Organization) {
-                            return organization?.name;
+                            return organization //fill the render field after generate code;
                         }
                     },
                     
@@ -339,7 +341,7 @@ function AppUserMasterView() {
                                 nameof(list[0].position),
                             ),
                         render(position: Position) {
-                            return position?.name;
+                            return position //fill the render field after generate code;
                         }
                     },
                     
@@ -355,7 +357,7 @@ function AppUserMasterView() {
                                 nameof(list[0].province),
                             ),
                         render(province: Province) {
-                            return province?.name;
+                            return province //fill the render field after generate code;
                         }
                     },
                     
@@ -371,7 +373,7 @@ function AppUserMasterView() {
                                 nameof(list[0].sex),
                             ),
                         render(sex: Sex) {
-                            return sex?.name;
+                            return sex //fill the render field after generate code;
                         }
                     },
                     
@@ -387,7 +389,7 @@ function AppUserMasterView() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status?.name;
+                            return status //fill the render field after generate code;
                         }
                     },
                     
@@ -834,4 +836,4 @@ function AppUserMasterView() {
     );
 }
 
-export default AppUserMasterView;
+export default AppUserMaster;

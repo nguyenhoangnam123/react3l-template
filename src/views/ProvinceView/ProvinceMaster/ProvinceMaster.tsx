@@ -6,7 +6,6 @@ import Table, { ColumnProps } from "antd/lib/table";
 import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
-import { formatDateTime } from "helpers/date-time";
 import { renderMasterIndex } from "helpers/table";
 import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
@@ -24,6 +23,7 @@ import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/Ad
 import { IdFilter } from "@react3l/advanced-filters";
 import AdvanceNumberFilter from "components/Utility/AdvanceFilter/AdvanceNumberFilter/AdvanceNumberFilter";
 import { NumberFilter } from "@react3l/advanced-filters";
+import { formatNumber } from "helpers/number";
 /* end filter import */
 
 /* begin individual import */
@@ -33,7 +33,7 @@ import { PROVINCE_DETAIL_ROUTE } from "config/route-consts";
 import { Status, StatusFilter } from "models/Status";
 /* end individual import */
 
-function ProvinceMasterView() {
+function ProvinceMaster() {
     const [translate] = useTranslation();
 
     const {
@@ -93,7 +93,7 @@ function ProvinceMasterView() {
                     
                     
                     {
-                        title: translate('provinces.code'),
+                        title: (<div className='text-center'>{translate('provinces.code')}</div>),
                         key: nameof(list[0].code),
                         dataIndex: nameof(list[0].code),
                         sorter: true,
@@ -107,7 +107,7 @@ function ProvinceMasterView() {
                     
                     
                     {
-                        title: translate('provinces.name'),
+                        title: (<div className='text-center'>{translate('provinces.name')}</div>),
                         key: nameof(list[0].name),
                         dataIndex: nameof(list[0].name),
                         sorter: true,
@@ -121,7 +121,7 @@ function ProvinceMasterView() {
                     
                     
                     {
-                        title: translate('provinces.priority'),
+                        title: (<div className='text-center'>{translate('provinces.priority')}</div>),
                         key: nameof(list[0].priority),
                         dataIndex: nameof(list[0].priority),
                         sorter: true,
@@ -130,6 +130,9 @@ function ProvinceMasterView() {
                                 filter,
                                 nameof(list[0].priority),
                             ),
+                        render(...params: [number, Province, number]) {
+                            return <div className='text-right'>{formatNumber(params[0])}</div>;
+                        },
                     },
                     
                     
@@ -144,17 +147,6 @@ function ProvinceMasterView() {
                     
                     
                     
-                    {
-                        title: translate('provinces.used'),
-                        key: nameof(list[0].used),
-                        dataIndex: nameof(list[0].used),
-                        sorter: true,
-                        sortOrder: getAntOrderType<Province, ProvinceFilter>
-                            (
-                                filter,
-                                nameof(list[0].used),
-                            ),
-                    },
                     
                     
                     
@@ -169,7 +161,7 @@ function ProvinceMasterView() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status?.name;
+                            return status //fill the render field after generate code;
                         }
                     },
                     
@@ -414,4 +406,4 @@ function ProvinceMasterView() {
     );
 }
 
-export default ProvinceMasterView;
+export default ProvinceMaster;

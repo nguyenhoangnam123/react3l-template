@@ -2,7 +2,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
-import { Card, Col, Row, Switch, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
@@ -11,9 +11,7 @@ import detailService from "services/pages/detail-service";
 /* begin individual import */
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
-import ContentModal from "components/Utility/ContentModal/ContentModal";
 import ContentTable from "components/Utility/ContentTable/ContentTable";
-import TreeSelect from "components/Utility/TreeSelect/TreeSelect";
 import { Menu } from 'models/Menu';
 import { MENU_MASTER_ROUTE } from 'config/route-consts'
 import { menuRepository } from "repositories/menu-repository";
@@ -22,7 +20,7 @@ import { useFieldTable } from "./FieldHook";
 
 const { TabPane } = Tabs;
 
-function MenuDetailView() {
+function MenuDetail() {
     const [translate] = useTranslation();
 
     const {
@@ -30,7 +28,6 @@ function MenuDetailView() {
         handleUpdateNewModel,
         isDetail,
         handleChangeSimpleField,
-        handleChangeTreeObjectField,
         handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<Menu>
@@ -60,6 +57,7 @@ function MenuDetailView() {
         handleImportField,
         handleExportField,
         handleExportTemplateField,
+        handleSearchField
     } = useFieldTable(model, handleUpdateNewModel);
     
 
@@ -187,4 +185,4 @@ function MenuDetailView() {
     );
 }
 
-export default MenuDetailView;
+export default MenuDetail;
