@@ -1,64 +1,70 @@
-import { Model } from "@react3l/react3l/core";
-import { Moment } from "moment";
-import { Organization } from "models/Organization";
-import { Position } from "models/Position";
-import { Province } from "models/Province";
-import { Sex } from "models/Sex";
-import { Status } from "models/Status";
-import { AppUserRoleMapping } from "models/AppUserRoleMapping";
+import { Model } from '@react3l/react3l/core';
+import { Moment } from 'moment';
+import { Organization } from 'models/Organization';
+import { Position } from 'models/Position';
+import { Province } from 'models/Province';
+import { Sex } from 'models/Sex';
+import { Status } from 'models/Status';
+import { AppUserRoleMapping } from 'models/AppUserRoleMapping';
 
-export class AppUser extends Model {
-  public id?: number;
+export class AppUser extends Model
+{
+    public id?: number;
 
-  public username?: string;
+    public username?: string;
 
-  public password?: string;
+    public password?: string;
 
-  public otpCode?: string;
+    public otpCode?: string;
 
-  public otpExpired?: Moment;
+    public otpExpired?: Moment;
 
-  public displayName?: string;
+    public displayName?: string;
 
-  public address?: string;
+    public address?: string;
 
-  public email?: string;
+    public email?: string;
 
-  public phone?: string;
+    public phone?: string;
 
-  public provinceId?: number;
+    public provinceId?: number;
 
-  public positionId?: number;
+    public positionId?: number;
 
-  public department?: string;
+    public department?: string;
 
-  public organizationId?: number;
+    public organizationId?: number;
 
-  public sexId?: number;
+    public sexId?: number;
 
-  public statusId?: number;
+    public statusId?: number;
 
-  public avatar?: string;
 
-  public birthday?: Moment;
 
-  public rowId?: string;
 
-  public used?: boolean;
+    public avatar?: string;
 
-  public longitude?: number;
+    public birthday?: Moment;
 
-  public latitude?: number;
+    public rowId?: number;
 
-  public organization?: Organization;
+    public used?: boolean;
 
-  public position?: Position;
+    public longitude?: number;
 
-  public province?: Province;
+    public latitude?: number;
 
-  public sex?: Sex;
 
-  public status?: Status;
+    public organization?: Organization;
 
-  public appUserRoleMappings?: AppUserRoleMapping[];
+    public position?: Position;
+
+    public province?: Province;
+
+    public sex?: Sex;
+
+    public status?: Status;
+
+    public appUserRoleMappings?: AppUserRoleMapping[];
+
 }
