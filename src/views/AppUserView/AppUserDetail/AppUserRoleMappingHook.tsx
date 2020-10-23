@@ -9,10 +9,8 @@ import {
   CreateTableColumns,
 } from "core/models/TableColumn";
 import { masterTableIndex } from "helpers/table";
-import tableService, {
-  mappingToMapper,
-  getAntOrderType,
-} from "services/table-service";
+import tableService, { mappingToMapper } from "services/table-service";
+import { getAntOrderType } from "services/table-service";
 import { componentFactoryService } from "services/component-factory/component-factory-service";
 import { useContentTable } from "components/Utility/ContentTable/ContentTableHook";
 import {
@@ -25,7 +23,7 @@ import { IdFilter, StringFilter, NumberFilter, DateFilter } from "@react3l/advan
 
 /* begin individual import */
 import { AppUser } from 'models/AppUser';
-import { AppUserRoleMapping, AppUserRoleMappingFilter } from 'models/AppUserRoleMapping'
+import { AppUserRoleMapping, AppUserRoleMappingFilter } from 'models/AppUserRoleMapping';
 import { appUserRepository } from "repositories/app-user-repository";
 import { Role, RoleFilter } from 'models/Role';
 /* end individual import */
@@ -121,9 +119,10 @@ export function useAppUserRoleMappingTable (
                     .DataIndex(nameof(appUserRoleMappingContents[0].role))
                     .Sorter(true)
                     .SortOrder(getAntOrderType<AppUserRoleMapping, AppUserRoleMappingFilter>
-                    (
-                        appUserRoleMappingFilter,
-                        nameof(appUserRoleMappingContents[0].role),),
+                        (
+                            appUserRoleMappingFilter,
+                            nameof(appUserRoleMappingContents[0].role),
+                        ),
                     )
                     .AddChild(
                         CreateColumn()
@@ -153,7 +152,7 @@ export function useAppUserRoleMappingTable (
                             .HasConfirm(true),
                         ),
                        ),
-                    )
+                    ),
                 );
             },
                 [
@@ -185,8 +184,8 @@ export function useAppUserRoleMappingTable (
         appUserRoleMappingContents,
         setAppUserRoleMappingContents,
         appUserRoleMappingContentColumns,
-        handleSearchAppUserRoleMapping: handleSearch
-    }
+        handleSearchAppUserRoleMapping: handleSearch,
+    };
 };
 
 export function useAppUserRoleMappingModal(source: AppUserRoleMapping, handleSource?: () => void) {
@@ -335,5 +334,5 @@ export const appUserRoleMappingContentMapper = (model: AppUserRoleMapping | Role
         ...new AppUserRoleMapping(),
         role: model,
     });
-}
+};
 

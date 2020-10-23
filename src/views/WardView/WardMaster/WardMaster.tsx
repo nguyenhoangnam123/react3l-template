@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -78,7 +77,7 @@ function WardMaster() {
     } = masterService.usePreview<Ward>
     (
         Ward,
-        wardRepository.get
+        wardRepository.get,
     );
 
     const columns: ColumnProps<Ward>[] = useMemo(
@@ -150,6 +149,11 @@ function WardMaster() {
                     
                     
                     
+                    {
+                        title: (<div className='text-center'>{translate('wards.used')}</div>),
+                        key: nameof(list[0].used),
+                        dataIndex: nameof(list[0].used),
+                    },
                     
                     
                     
@@ -164,8 +168,8 @@ function WardMaster() {
                                 nameof(list[0].district),
                             ),
                         render(district: District) {
-                            return district //fill the render field after generate code;
-                        }
+                            return district; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -180,15 +184,16 @@ function WardMaster() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status //fill the render field after generate code;
-                        }
+                            return status; //fill the render field after generate code;
+                        },
                     },
                     
                     {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, ward: Ward) {
                             return (
@@ -358,8 +363,7 @@ function WardMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

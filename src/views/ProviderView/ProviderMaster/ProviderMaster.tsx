@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -19,8 +18,6 @@ import ProviderPreview from "./ProviderPreview";
 /* begin filter import */
 import AdvanceStringFilter from "components/Utility/AdvanceFilter/AdvanceStringFilter/AdvanceStringFilter";
 import { StringFilter } from "@react3l/advanced-filters";
-import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/AdvanceIdFilter";
-import { IdFilter } from "@react3l/advanced-filters";
 /* end filter import */
 
 /* begin individual import */
@@ -73,7 +70,7 @@ function ProviderMaster() {
     } = masterService.usePreview<Provider>
     (
         Provider,
-        providerRepository.get
+        providerRepository.get,
     );
 
     const columns: ColumnProps<Provider>[] = useMemo(
@@ -231,7 +228,8 @@ function ProviderMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, provider: Provider) {
                             return (
@@ -456,8 +454,7 @@ function ProviderMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

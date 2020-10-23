@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -19,8 +18,6 @@ import PagePreview from "./PagePreview";
 /* begin filter import */
 import AdvanceStringFilter from "components/Utility/AdvanceFilter/AdvanceStringFilter/AdvanceStringFilter";
 import { StringFilter } from "@react3l/advanced-filters";
-import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/AdvanceIdFilter";
-import { IdFilter } from "@react3l/advanced-filters";
 /* end filter import */
 
 /* begin individual import */
@@ -73,7 +70,7 @@ function PageMaster() {
     } = masterService.usePreview<Page>
     (
         Page,
-        pageRepository.get
+        pageRepository.get,
     );
 
     const columns: ColumnProps<Page>[] = useMemo(
@@ -116,6 +113,11 @@ function PageMaster() {
                     
                     
                     
+                    {
+                        title: (<div className='text-center'>{translate('pages.isDeleted')}</div>),
+                        key: nameof(list[0].isDeleted),
+                        dataIndex: nameof(list[0].isDeleted),
+                    },
                     
                     
                     
@@ -124,7 +126,8 @@ function PageMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, page: Page) {
                             return (
@@ -245,8 +248,7 @@ function PageMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

@@ -1,53 +1,48 @@
 /* begin general import */
-import React from 'react';
+import React, { Dispatch, useContext } from 'react';
 import { Model } from '@react3l/react3l/core/model';
 import { Descriptions } from 'antd';
+import ChatBox from 'components/Utility/ChatBox/ChatBox';
 import Modal from 'components/Utility/Modal/Modal';
 import { TFunction } from 'i18next';
 import moment from "moment";
-// import ChatBox from 'components/Utility/ChatBox/ChatBox';
-// import { useGlobal } from 'reactn';
-// import { AppUser } from 'models/AppUser';
-// import {disscusionRepository} from 'repositories/disscusion-repository';
-// import { appUserRepository } from 'repositories/app-user-repository';
+import {AppStoreContext, AppAction, AppState} from 'App';
+import {discussionRepository} from 'repositories/discussion-repository';
+import { appUserRepository } from 'repositories/app-user-repository';
 /* end general import */
 
 /* begin individual import */
 import { EventMessage } from 'models/EventMessage';
-
-
 /* end individual import */
 
-interface EventMessagePreviewProps<T extends Model>
-    {
+interface EventMessagePreviewProps<T extends Model>{
     previewModel?: T;
     isOpenPreview?: boolean;
     isLoadingPreview?: boolean;
     handleClosePreview?: () => void;
     handleGoDetail?: (id: number) => () => void;
     translate?: TFunction;
-    };
+};
 
-    function EventMessagePreview(props: EventMessagePreviewProps<EventMessage>
-        ) {
+function EventMessagePreview(props: EventMessagePreviewProps<EventMessage>) {
 
-        const {
+    const {
         previewModel,
         isOpenPreview,
         isLoadingPreview,
         handleClosePreview,
         handleGoDetail,
         translate,
-        } = props;
+    } = props;
 
-        // const [userInfo] = useGlobal<AppUser>('user');
+    const [state] = useContext<[AppState, Dispatch<AppAction>]>(AppStoreContext);
 
-            return <>
+        return <>
             <Modal title={null}
-                   visible={isOpenPreview}
-                   handleCancel={handleClosePreview}
-                   width={1000}
-                   visibleFooter={false}>
+                    visible={isOpenPreview}
+                    handleCancel={handleClosePreview}
+                    width={1000}
+                    visibleFooter={false}>
                 { isLoadingPreview ?
                 <div className="loading-block">
                     <img src="/assets/svg/spinner.svg" alt='Loading...' />
@@ -98,20 +93,19 @@ interface EventMessagePreviewProps<T extends Model>
                         <div className="preview__footer"></div>
                     </div>
                     <div className="preview__right-side">
-                         {/* <ChatBox getMessages={disscusionRepository.list}
-                                 countMessages={disscusionRepository.count}
-                                 postMessage={disscusionRepository.create}
-                                 deleteMessage={disscusionRepository.delete}
-                                 attachFile={disscusionRepository.import}
-                                 suggestList={appUserRepository.list}
-                                 discussionId={previewModel.rowId}
-                                 userInfo={userInfo} />
-                        */}
+                        <ChatBox getMessages={discussionRepository.list}
+                                    countMessages={discussionRepository.count}
+                                    postMessage={discussionRepository.create}
+                                    deleteMessage={discussionRepository.delete}
+                                    attachFile={discussionRepository.import}
+                                    suggestList={appUserRepository.list}
+                                    discussionId={previewModel.rowId}
+                                    userInfo={state.user} />
                     </div>
                 </div>
                 }
             </Modal>
-            </>;
-            }
+        </>;
+}
 
-            export default EventMessagePreview;
+export default EventMessagePreview;

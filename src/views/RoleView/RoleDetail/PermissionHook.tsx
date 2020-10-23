@@ -9,10 +9,7 @@ import {
   CreateTableColumns,
 } from "core/models/TableColumn";
 import { masterTableIndex } from "helpers/table";
-import tableService, {
-  mappingToMapper,
-  getAntOrderType,
-} from "services/table-service";
+import { getAntOrderType } from "services/table-service";
 import { componentFactoryService } from "services/component-factory/component-factory-service";
 import { useContentTable } from "components/Utility/ContentTable/ContentTableHook";
 import {
@@ -25,7 +22,7 @@ import { IdFilter, StringFilter, NumberFilter, DateFilter } from "@react3l/advan
 
 /* begin individual import */
 import { Role } from 'models/Role';
-import { Permission, PermissionFilter } from 'models/Permission'
+import { Permission, PermissionFilter } from 'models/Permission';
 import { roleRepository } from "repositories/role-repository";
 import { Menu, MenuFilter } from 'models/Menu';
 /* end individual import */
@@ -183,9 +180,10 @@ export function usePermissionTable (
                     .DataIndex(nameof(permissionContents[0].menu))
                     .Sorter(true)
                     .SortOrder(getAntOrderType<Permission, PermissionFilter>
-                    (
-                        permissionFilter,
-                        nameof(permissionContents[0].menu),),
+                        (
+                            permissionFilter,
+                            nameof(permissionContents[0].menu),
+                        ),
                     )
                     .AddChild(
                         CreateColumn()
@@ -219,7 +217,7 @@ export function usePermissionTable (
                             .HasConfirm(true),
                         ),
                        ),
-                    )
+                    ),
                 );
             },
                 [
@@ -252,8 +250,8 @@ export function usePermissionTable (
         permissionContents,
         setPermissionContents,
         permissionContentColumns,
-        handleSearchPermission: handleSearch
-    }
+        handleSearchPermission: handleSearch,
+    };
 };
 
 

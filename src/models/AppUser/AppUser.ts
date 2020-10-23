@@ -46,7 +46,7 @@ export class AppUser extends Model
 
     public birthday?: Moment;
 
-    public rowId?: number;
+    public rowId?: string;
 
     public used?: boolean;
 

@@ -1,27 +1,35 @@
 /* begin general import */
-import React from "react";
+import React, { Dispatch, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
 import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
+import { discussionRepository } from "repositories/discussion-repository";
+import AppFooter from "components/AppFooter/AppFooter";
+import {AppStoreContext, AppAction, AppState} from 'App';
+import ChatBox from 'components/Utility/ChatBox/ChatBox';
 /* end general import */
 
 /* begin individual import */
+import { Switch } from "antd";
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
 import { Position } from 'models/Position';
-import { POSITION_MASTER_ROUTE } from 'config/route-consts'
+import { POSITION_MASTER_ROUTE } from 'config/route-consts';
+import { appUserRepository } from 'repositories/app-user-repository';
 import { positionRepository } from "repositories/position-repository";
 
-import { StatusFilter } from 'models/Status'
+import { StatusFilter } from 'models/Status';
 /* end individual import */
 
 const { TabPane } = Tabs;
 
 function PositionDetail() {
     const [translate] = useTranslation();
+
+    const [state] = useContext<[AppState, Dispatch<AppAction>]>(AppStoreContext);
 
     const {
         model,
@@ -34,34 +42,35 @@ function PositionDetail() {
         Position,
         positionRepository.get,
         positionRepository.save,
-        POSITION_MASTER_ROUTE
+        POSITION_MASTER_ROUTE,
     );
 
     return (
-        <div className='page page__detail'>
-            <div className='page__header d-flex align-items-center'>
-                <div className='page__title mr-1'>
-                    {translate("positions.detail.title")}
+        <>
+            <div className='page page__detail'>
+                <div className='page__header d-flex align-items-center'>
+                    <div className='page__title mr-1'>
+                        {translate("positions.detail.title")}
+                    </div>
+                    {isDetail ? (
+                    <div className='page__id'>{`- # ${model.id}`}</div>
+                    ) : (
+                    translate("general.actions.create")
+                    )}
                 </div>
-                {isDetail ? (
-                <div className='page__id'>{`- # ${model.id}`}</div>
-                ) : (
-                translate("general.actions.create")
-                )}
-            </div>
-            <div className='w-100 mt-3 page__detail-tabs'>
-                <Row className='d-flex'>
-                    <Col lg={18}>
-                    <Card className='mr-3'>
-                        <Tabs defaultActiveKey='1'>
-                            <TabPane tab={translate("general.detail.generalInfomation")}
-                                     key='1'>
-                                <Row>
-                                    
+                <div className='w-100 mt-3 page__detail-tabs'>
+                    <Row className='d-flex'>
+                        <Col lg={18}>
+                        <Card className='mr-3'>
+                            <Tabs defaultActiveKey='1'>
+                                <TabPane tab={translate("general.detail.generalInfomation")}
+                                        key='1'>
+                                    <Row>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("positions.code")}
-                                                validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.code))}
+                                                    validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.code))}
                                                 message={ model.errors?.code }>
                                             <InputText isMaterial={true}
                                                         value={ model.code }
@@ -69,12 +78,12 @@ function PositionDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.code))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("positions.name")}
-                                                validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.name))}
+                                                    validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.name))}
                                                 message={ model.errors?.name }>
                                             <InputText isMaterial={true}
                                                         value={ model.name }
@@ -82,25 +91,28 @@ function PositionDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.name))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
 
 
 
 
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("positions.used")}
-                                                validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.used))}
+                                                    validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.used))}
                                                 message={ model.errors?.used }>
+                                            <Switch size='small'
+                                                    onChange={handleChangeSimpleField(nameof(model.used))}
+                                                    checked={ model.used } />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("positions.status")}
-                                                validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.status))}
+                                                    validateStatus={formService.getValidationStatus<Position>(model.errors, nameof(model.status))}
                                                 message={ model.errors?.status } >
                                                 <Select isMaterial={true}
                                                     classFilter={ StatusFilter }
@@ -109,24 +121,36 @@ function PositionDetail() {
                                                     onChange={handleChangeObjectField(nameof(model.status))}
                                                     model={ model.status } />
                                         </FormItem>
-                                    </Col>
+                                        </Col>
 
-                                </Row>
-                            </TabPane>
-                        </Tabs>
-                    </Card>
-                    </Col>
-                </Row>
+                                    </Row>
+                                </TabPane>
+                            </Tabs>
+                        </Card>
+                        </Col>
+                        <Col lg={6}>
+                            <ChatBox getMessages={discussionRepository.list}
+                                    countMessages={discussionRepository.count}
+                                    postMessage={discussionRepository.create}
+                                    deleteMessage={discussionRepository.delete}
+                                    attachFile={discussionRepository.import}
+                                    suggestList={appUserRepository.list}
+                                    discussionId={model.rowId}
+                                    userInfo={state.user} />
+                        </Col>
+                    </Row>
+                </div>
+                <div className='w-100 mt-3 page__detail-tabs'>
+                    <Row className='mt-3 mb-5'>
+                        <button className='btn component__btn-primary pr-4 mb-5'
+                                onClick={handleSave()}>
+                            {translate("positions.button.saveModel")}
+                        </button>
+                    </Row>
+                </div>
             </div>
-            <div className='w-100 mt-3 page__detail-tabs'>
-                <Row className='mt-3 mb-5'>
-                    <button className='btn component__btn-primary pr-4 mb-5'
-                            onClick={handleSave()}>
-                        {translate("positions.button.saveModel")}
-                    </button>
-                </Row>
-            </div>
-        </div>
+            <AppFooter></AppFooter>
+        </>
     );
 }
 

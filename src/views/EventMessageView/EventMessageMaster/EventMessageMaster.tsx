@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -24,6 +23,7 @@ import { IdFilter } from "@react3l/advanced-filters";
 import AdvanceDateFilter from "components/Utility/AdvanceFilter/AdvanceDateFilter/AdvanceDateFilter";
 import { DateFilter } from "@react3l/advanced-filters";
 import { formatDateTime } from "helpers/date-time";
+import { Moment } from "moment";
 /* end filter import */
 
 /* begin individual import */
@@ -76,7 +76,7 @@ function EventMessageMaster() {
     } = masterService.usePreview<EventMessage>
     (
         EventMessage,
-        eventMessageRepository.get
+        eventMessageRepository.get,
     );
 
     const columns: ColumnProps<EventMessage>[] = useMemo(
@@ -141,7 +141,8 @@ function EventMessageMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, eventMessage: EventMessage) {
                             return (
@@ -269,8 +270,7 @@ function EventMessageMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

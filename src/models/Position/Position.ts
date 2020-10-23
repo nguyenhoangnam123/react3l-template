@@ -11,7 +11,7 @@ export class Position extends Model
 
     public statusId?: number;
 
-    public rowId?: number;
+    public rowId?: string;
 
 
 

@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -74,7 +73,7 @@ function ActionMaster() {
     } = masterService.usePreview<Action>
     (
         Action,
-        actionRepository.get
+        actionRepository.get,
     );
 
     const columns: ColumnProps<Action>[] = useMemo(
@@ -105,6 +104,11 @@ function ActionMaster() {
                     
                     
                     
+                    {
+                        title: (<div className='text-center'>{translate('actions.isDeleted')}</div>),
+                        key: nameof(list[0].isDeleted),
+                        dataIndex: nameof(list[0].isDeleted),
+                    },
                     
                     
                     
@@ -119,8 +123,8 @@ function ActionMaster() {
                                 nameof(list[0].menu),
                             ),
                         render(menu: Menu) {
-                            return menu //fill the render field after generate code;
-                        }
+                            return menu; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -131,7 +135,8 @@ function ActionMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, action: Action) {
                             return (
@@ -255,8 +260,7 @@ function ActionMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

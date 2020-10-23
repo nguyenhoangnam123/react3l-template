@@ -1,57 +1,51 @@
 /* begin general import */
-import React from 'react';
+import React, { Dispatch, useContext } from 'react';
 import { Model } from '@react3l/react3l/core/model';
 import { Descriptions } from 'antd';
+import ChatBox from 'components/Utility/ChatBox/ChatBox';
 import Modal from 'components/Utility/Modal/Modal';
 import { TFunction } from 'i18next';
 import moment from "moment";
-// import ChatBox from 'components/Utility/ChatBox/ChatBox';
-// import { useGlobal } from 'reactn';
-// import { AppUser } from 'models/AppUser';
-// import {disscusionRepository} from 'repositories/disscusion-repository';
-// import { appUserRepository } from 'repositories/app-user-repository';
+import {AppStoreContext, AppAction, AppState} from 'App';
+import {discussionRepository} from 'repositories/discussion-repository';
+import { appUserRepository } from 'repositories/app-user-repository';
 /* end general import */
 
 /* begin individual import */
 import { Menu } from 'models/Menu';
 import nameof from "ts-nameof.macro";
 import Table from "antd/lib/table";
-import { Field } from 'models/Field';
 import { FieldType } from 'models/FieldType';
-
-
 /* end individual import */
 
-interface MenuPreviewProps<T extends Model>
-    {
+interface MenuPreviewProps<T extends Model>{
     previewModel?: T;
     isOpenPreview?: boolean;
     isLoadingPreview?: boolean;
     handleClosePreview?: () => void;
     handleGoDetail?: (id: number) => () => void;
     translate?: TFunction;
-    };
+};
 
-    function MenuPreview(props: MenuPreviewProps<Menu>
-        ) {
+function MenuPreview(props: MenuPreviewProps<Menu>) {
 
-        const {
+    const {
         previewModel,
         isOpenPreview,
         isLoadingPreview,
         handleClosePreview,
         handleGoDetail,
         translate,
-        } = props;
+    } = props;
 
-        // const [userInfo] = useGlobal<AppUser>('user');
+    const [state] = useContext<[AppState, Dispatch<AppAction>]>(AppStoreContext);
 
-            return <>
+        return <>
             <Modal title={null}
-                   visible={isOpenPreview}
-                   handleCancel={handleClosePreview}
-                   width={1000}
-                   visibleFooter={false}>
+                    visible={isOpenPreview}
+                    handleCancel={handleClosePreview}
+                    width={1000}
+                    visibleFooter={false}>
                 { isLoadingPreview ?
                 <div className="loading-block">
                     <img src="/assets/svg/spinner.svg" alt='Loading...' />
@@ -101,59 +95,58 @@ interface MenuPreviewProps<T extends Model>
                             </div>
                             <div className="preview__content">
                                 <Table tableLayout='fixed'
-                                       rowKey={nameof(previewModel.fields[0].id)}
-                                       columns={[
-                                       
-                                       
-                                       {
-                                       title: translate('fields.name'),
-                                       dataIndex: 'name' ,
-                                       key: 'name'
-                                       },
-                                       
-                                       
-                                       
-                                       
-                                       {
-                                       title: translate('fields.isDeleted'),
-                                       dataIndex: 'isDeleted' ,
-                                       key: 'isDeleted'
-                                       },
-                                       
-                                       
-                                       {
-                                       title: translate('fields.fieldType'),
-                                       dataIndex: 'fieldType' ,
-                                       key: 'fieldType' ,
-                                       render(fieldType: FieldType){
-                                       return fieldType; // fill render field after generate
-                                       }
-                                       },
-                                       
-                                       
-                                       
-                                       ]}
-                                       pagination={false}
-                                       dataSource={previewModel.fieldsMappings} />
+                                        rowKey={nameof(previewModel.fields[0].id)}
+                                        columns={[
+                                        
+                                        
+                                        {
+                                            title: translate('fields.name'),
+                                            dataIndex: 'name',
+                                            key: 'name',
+                                        },
+                                        
+                                        
+                                        
+                                        
+                                        {
+                                            title: translate('fields.isDeleted'),
+                                            dataIndex: 'isDeleted',
+                                            key: 'isDeleted',
+                                        },
+                                        
+                                        
+                                        {
+                                            title: translate('fields.fieldType'),
+                                            dataIndex: 'fieldType' ,
+                                            key: 'fieldType' ,
+                                            render(fieldType: FieldType){
+                                                return fieldType; // fill render field after generate
+                                            },
+                                        },
+                                        
+                                        
+                                        
+                                        ]}
+                                        pagination={false}
+                                        dataSource={previewModel.fieldsMappings} />
                             </div>
                         </div>
                         <div className="preview__footer"></div>
                     </div>
                     <div className="preview__right-side">
-                         {/* <ChatBox getMessages={disscusionRepository.list}
-                                 countMessages={disscusionRepository.count}
-                                 postMessage={disscusionRepository.create}
-                                 deleteMessage={disscusionRepository.delete}
-                                 attachFile={disscusionRepository.import}
-                                 suggestList={appUserRepository.list}
-                                 discussionId={previewModel.rowId}
-                                 userInfo={userInfo} />
-                        */}
+                        <ChatBox getMessages={discussionRepository.list}
+                                    countMessages={discussionRepository.count}
+                                    postMessage={discussionRepository.create}
+                                    deleteMessage={discussionRepository.delete}
+                                    attachFile={discussionRepository.import}
+                                    suggestList={appUserRepository.list}
+                                    discussionId={previewModel.rowId}
+                                    userInfo={state.user} />
                     </div>
                 </div>
                 }
             </Modal>
-            </>;
-            }
+        </>;
+}
 
-            export default MenuPreview;
+export default MenuPreview;

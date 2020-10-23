@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -74,7 +73,7 @@ function RoleMaster() {
     } = masterService.usePreview<Role>
     (
         Role,
-        roleRepository.get
+        roleRepository.get,
     );
 
     const columns: ColumnProps<Role>[] = useMemo(
@@ -119,6 +118,11 @@ function RoleMaster() {
                     
                     
                     
+                    {
+                        title: (<div className='text-center'>{translate('roles.used')}</div>),
+                        key: nameof(list[0].used),
+                        dataIndex: nameof(list[0].used),
+                    },
                     
                     
                     
@@ -133,15 +137,16 @@ function RoleMaster() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status //fill the render field after generate code;
-                        }
+                            return status; //fill the render field after generate code;
+                        },
                     },
                     
                     {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, role: Role) {
                             return (
@@ -279,8 +284,7 @@ function RoleMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

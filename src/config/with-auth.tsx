@@ -15,32 +15,32 @@ export interface AuthState {
 export default function WithAuth(WrappedComponent: any, pathName: string) {
   return class extends React.Component<{}, {}>
     {
-    render() {
-    return (
-    <WithCheckAuth path={pathName}>
-        <WrappedComponent />
-    </WithCheckAuth>
-    );
-    }
+        render() {
+            return (
+            <WithCheckAuth path={pathName}>
+                <WrappedComponent />
+            </WithCheckAuth>
+            );
+        }
     };
-    }
+}
 
-    export function WithCheckAuth(props: WithAuthProps) {
+export function WithCheckAuth(props: WithAuthProps) {
     const [translate] = useTranslation();
     const { children, path } = props;
     const mapper = useContext<Record<string, number>>(MenuRouteContext);
-  const [isAuth, setIsAuth] = useState<boolean>(false);
+    const [isAuth, setIsAuth] = useState<boolean>(false);
 
-  return (
+    return (
     <>
-      {isAuth ? (
+        {isAuth ? (
         <>{children}</>
-      ) : (
+        ) : (
         <Spin
-          className='checking'
-          tip={translate("pages.checking.authority")}
+            className='checking'
+            tip={translate("pages.checking.authority")}
         />
-      )}
+        )}
     </>
-  );
+    );
 }

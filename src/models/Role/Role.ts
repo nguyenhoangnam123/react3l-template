@@ -1,5 +1,6 @@
 import { Model } from '@react3l/react3l/core';
 import { Status } from 'models/Status';
+import { AppUserRoleMapping } from 'models/AppUserRoleMapping';
 import { Permission } from 'models/Permission';
 
 export class Role extends Model
@@ -17,6 +18,7 @@ export class Role extends Model
 
     public status?: Status;
 
+    public appUserRoleMappings?: AppUserRoleMapping[];
 
     public permissions?: Permission[];
 }

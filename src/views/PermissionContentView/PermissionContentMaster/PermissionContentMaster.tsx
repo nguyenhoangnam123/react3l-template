@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -76,7 +75,7 @@ function PermissionContentMaster() {
     } = masterService.usePreview<PermissionContent>
     (
         PermissionContent,
-        permissionContentRepository.get
+        permissionContentRepository.get,
     );
 
     const columns: ColumnProps<PermissionContent>[] = useMemo(
@@ -122,8 +121,8 @@ function PermissionContentMaster() {
                                 nameof(list[0].field),
                             ),
                         render(field: Field) {
-                            return field //fill the render field after generate code;
-                        }
+                            return field; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -138,8 +137,8 @@ function PermissionContentMaster() {
                                 nameof(list[0].permission),
                             ),
                         render(permission: Permission) {
-                            return permission //fill the render field after generate code;
-                        }
+                            return permission; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -154,15 +153,16 @@ function PermissionContentMaster() {
                                 nameof(list[0].permissionOperator),
                             ),
                         render(permissionOperator: PermissionOperator) {
-                            return permissionOperator //fill the render field after generate code;
-                        }
+                            return permissionOperator; //fill the render field after generate code;
+                        },
                     },
                     
                     {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, permissionContent: PermissionContent) {
                             return (
@@ -309,8 +309,7 @@ function PermissionContentMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

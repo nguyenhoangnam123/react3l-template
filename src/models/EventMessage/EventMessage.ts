@@ -7,7 +7,7 @@ export class EventMessage extends Model
 
     public time?: Moment;
 
-    public rowId?: number;
+    public rowId?: string;
 
     public entityName?: string;
 

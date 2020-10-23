@@ -9,10 +9,8 @@ import {
   CreateTableColumns,
 } from "core/models/TableColumn";
 import { masterTableIndex } from "helpers/table";
-import tableService, {
-  mappingToMapper,
-  getAntOrderType,
-} from "services/table-service";
+import tableService, { mappingToMapper } from "services/table-service";
+import { getAntOrderType } from "services/table-service";
 import { componentFactoryService } from "services/component-factory/component-factory-service";
 import { useContentTable } from "components/Utility/ContentTable/ContentTableHook";
 import {
@@ -25,7 +23,7 @@ import { IdFilter, StringFilter, NumberFilter, DateFilter } from "@react3l/advan
 
 /* begin individual import */
 import { Permission } from 'models/Permission';
-import { PermissionActionMapping, PermissionActionMappingFilter } from 'models/PermissionActionMapping'
+import { PermissionActionMapping, PermissionActionMappingFilter } from 'models/PermissionActionMapping';
 import { permissionRepository } from "repositories/permission-repository";
 import { Action, ActionFilter } from 'models/Action';
 /* end individual import */
@@ -120,9 +118,10 @@ export function usePermissionActionMappingTable (
                     .DataIndex(nameof(permissionActionMappingContents[0].action))
                     .Sorter(true)
                     .SortOrder(getAntOrderType<PermissionActionMapping, PermissionActionMappingFilter>
-                    (
-                        permissionActionMappingFilter,
-                        nameof(permissionActionMappingContents[0].action),),
+                        (
+                            permissionActionMappingFilter,
+                            nameof(permissionActionMappingContents[0].action),
+                        ),
                     )
                     .AddChild(
                         CreateColumn()
@@ -153,7 +152,7 @@ export function usePermissionActionMappingTable (
                             .HasConfirm(true),
                         ),
                        ),
-                    )
+                    ),
                 );
             },
                 [
@@ -185,8 +184,8 @@ export function usePermissionActionMappingTable (
         permissionActionMappingContents,
         setPermissionActionMappingContents,
         permissionActionMappingContentColumns,
-        handleSearchPermissionActionMapping: handleSearch
-    }
+        handleSearchPermissionActionMapping: handleSearch,
+    };
 };
 
 export function usePermissionActionMappingModal(source: PermissionActionMapping, handleSource?: () => void) {
@@ -321,5 +320,5 @@ export const permissionActionMappingContentMapper = (model: PermissionActionMapp
         ...new PermissionActionMapping(),
         action: model,
     });
-}
+};
 

@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -76,7 +75,7 @@ function AppUserPermissionMaster() {
     } = masterService.usePreview<AppUserPermission>
     (
         AppUserPermission,
-        appUserPermissionRepository.get
+        appUserPermissionRepository.get,
     );
 
     const columns: ColumnProps<AppUserPermission>[] = useMemo(
@@ -127,7 +126,8 @@ function AppUserPermissionMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, appUserPermission: AppUserPermission) {
                             return (
@@ -241,8 +241,7 @@ function AppUserPermissionMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

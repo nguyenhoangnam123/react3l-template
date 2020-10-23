@@ -19,7 +19,7 @@ export class Ward extends Model
 
 
 
-    public rowId?: number;
+    public rowId?: string;
 
     public used?: boolean;
 

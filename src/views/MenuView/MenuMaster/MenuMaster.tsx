@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -19,8 +18,6 @@ import MenuPreview from "./MenuPreview";
 /* begin filter import */
 import AdvanceStringFilter from "components/Utility/AdvanceFilter/AdvanceStringFilter/AdvanceStringFilter";
 import { StringFilter } from "@react3l/advanced-filters";
-import AdvanceIdFilter from "components/Utility/AdvanceFilter/AdvanceIdFilter/AdvanceIdFilter";
-import { IdFilter } from "@react3l/advanced-filters";
 /* end filter import */
 
 /* begin individual import */
@@ -73,7 +70,7 @@ function MenuMaster() {
     } = masterService.usePreview<Menu>
     (
         Menu,
-        menuRepository.get
+        menuRepository.get,
     );
 
     const columns: ColumnProps<Menu>[] = useMemo(
@@ -130,6 +127,11 @@ function MenuMaster() {
                     
                     
                     
+                    {
+                        title: (<div className='text-center'>{translate('menus.isDeleted')}</div>),
+                        key: nameof(list[0].isDeleted),
+                        dataIndex: nameof(list[0].isDeleted),
+                    },
                     
                     
                     
@@ -140,7 +142,8 @@ function MenuMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, menu: Menu) {
                             return (
@@ -277,8 +280,7 @@ function MenuMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

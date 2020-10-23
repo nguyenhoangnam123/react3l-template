@@ -1,30 +1,38 @@
 /* begin general import */
-import React from "react";
+import React, { Dispatch, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
 import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
+import { discussionRepository } from "repositories/discussion-repository";
+import AppFooter from "components/AppFooter/AppFooter";
+import {AppStoreContext, AppAction, AppState} from 'App';
+import ChatBox from 'components/Utility/ChatBox/ChatBox';
 /* end general import */
 
 /* begin individual import */
+import { Switch } from "antd";
 import InputText from "components/Utility/Input/InputText/InputText";
 import Select from "components/Utility/Select/Select";
 import InputNumber, { DECIMAL, LONG } from "components/Utility/Input/InputNumber/InputNumber";
 import { Ward } from 'models/Ward';
-import { WARD_MASTER_ROUTE } from 'config/route-consts'
+import { WARD_MASTER_ROUTE } from 'config/route-consts';
+import { appUserRepository } from 'repositories/app-user-repository';
 import { wardRepository } from "repositories/ward-repository";
 
-import { DistrictFilter } from 'models/District'
+import { DistrictFilter } from 'models/District';
 
-import { StatusFilter } from 'models/Status'
+import { StatusFilter } from 'models/Status';
 /* end individual import */
 
 const { TabPane } = Tabs;
 
 function WardDetail() {
     const [translate] = useTranslation();
+
+    const [state] = useContext<[AppState, Dispatch<AppAction>]>(AppStoreContext);
 
     const {
         model,
@@ -37,34 +45,35 @@ function WardDetail() {
         Ward,
         wardRepository.get,
         wardRepository.save,
-        WARD_MASTER_ROUTE
+        WARD_MASTER_ROUTE,
     );
 
     return (
-        <div className='page page__detail'>
-            <div className='page__header d-flex align-items-center'>
-                <div className='page__title mr-1'>
-                    {translate("wards.detail.title")}
+        <>
+            <div className='page page__detail'>
+                <div className='page__header d-flex align-items-center'>
+                    <div className='page__title mr-1'>
+                        {translate("wards.detail.title")}
+                    </div>
+                    {isDetail ? (
+                    <div className='page__id'>{`- # ${model.id}`}</div>
+                    ) : (
+                    translate("general.actions.create")
+                    )}
                 </div>
-                {isDetail ? (
-                <div className='page__id'>{`- # ${model.id}`}</div>
-                ) : (
-                translate("general.actions.create")
-                )}
-            </div>
-            <div className='w-100 mt-3 page__detail-tabs'>
-                <Row className='d-flex'>
-                    <Col lg={18}>
-                    <Card className='mr-3'>
-                        <Tabs defaultActiveKey='1'>
-                            <TabPane tab={translate("general.detail.generalInfomation")}
-                                     key='1'>
-                                <Row>
-                                    
+                <div className='w-100 mt-3 page__detail-tabs'>
+                    <Row className='d-flex'>
+                        <Col lg={18}>
+                        <Card className='mr-3'>
+                            <Tabs defaultActiveKey='1'>
+                                <TabPane tab={translate("general.detail.generalInfomation")}
+                                        key='1'>
+                                    <Row>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("wards.code")}
-                                                validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.code))}
+                                                    validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.code))}
                                                 message={ model.errors?.code }>
                                             <InputText isMaterial={true}
                                                         value={ model.code }
@@ -72,12 +81,12 @@ function WardDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.code))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("wards.name")}
-                                                validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.name))}
+                                                    validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.name))}
                                                 message={ model.errors?.name }>
                                             <InputText isMaterial={true}
                                                         value={ model.name }
@@ -85,12 +94,12 @@ function WardDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.name))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("wards.priority")}
-                                                validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.priority))}
+                                                    validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.priority))}
                                                 message={ model.errors?.priority }>
                                             <InputNumber isMaterial={true}
                                                             value={ model.priority }
@@ -98,8 +107,8 @@ function WardDetail() {
                                                             onChange={handleChangeSimpleField(nameof(model.priority))}
                                                             numberType={DECIMAL} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
 
 
@@ -107,17 +116,20 @@ function WardDetail() {
 
 
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("wards.used")}
-                                                validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.used))}
+                                                    validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.used))}
                                                 message={ model.errors?.used }>
+                                            <Switch size='small'
+                                                    onChange={handleChangeSimpleField(nameof(model.used))}
+                                                    checked={ model.used } />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("wards.district")}
-                                                validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.district))}
+                                                    validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.district))}
                                                 message={ model.errors?.district } >
                                                 <Select isMaterial={true}
                                                     classFilter={ DistrictFilter }
@@ -126,11 +138,11 @@ function WardDetail() {
                                                     onChange={handleChangeObjectField(nameof(model.district))}
                                                     model={ model.district } />
                                         </FormItem>
-                                    </Col>
+                                        </Col>
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("wards.status")}
-                                                validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.status))}
+                                                    validateStatus={formService.getValidationStatus<Ward>(model.errors, nameof(model.status))}
                                                 message={ model.errors?.status } >
                                                 <Select isMaterial={true}
                                                     classFilter={ StatusFilter }
@@ -139,23 +151,35 @@ function WardDetail() {
                                                     onChange={handleChangeObjectField(nameof(model.status))}
                                                     model={ model.status } />
                                         </FormItem>
-                                    </Col>
-                                </Row>
-                            </TabPane>
-                        </Tabs>
-                    </Card>
-                    </Col>
-                </Row>
+                                        </Col>
+                                    </Row>
+                                </TabPane>
+                            </Tabs>
+                        </Card>
+                        </Col>
+                        <Col lg={6}>
+                            <ChatBox getMessages={discussionRepository.list}
+                                    countMessages={discussionRepository.count}
+                                    postMessage={discussionRepository.create}
+                                    deleteMessage={discussionRepository.delete}
+                                    attachFile={discussionRepository.import}
+                                    suggestList={appUserRepository.list}
+                                    discussionId={model.rowId}
+                                    userInfo={state.user} />
+                        </Col>
+                    </Row>
+                </div>
+                <div className='w-100 mt-3 page__detail-tabs'>
+                    <Row className='mt-3 mb-5'>
+                        <button className='btn component__btn-primary pr-4 mb-5'
+                                onClick={handleSave()}>
+                            {translate("wards.button.saveModel")}
+                        </button>
+                    </Row>
+                </div>
             </div>
-            <div className='w-100 mt-3 page__detail-tabs'>
-                <Row className='mt-3 mb-5'>
-                    <button className='btn component__btn-primary pr-4 mb-5'
-                            onClick={handleSave()}>
-                        {translate("wards.button.saveModel")}
-                    </button>
-                </Row>
-            </div>
-        </div>
+            <AppFooter></AppFooter>
+        </>
     );
 }
 

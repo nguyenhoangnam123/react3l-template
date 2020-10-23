@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -27,6 +26,7 @@ import { formatNumber } from "helpers/number";
 import AdvanceDateFilter from "components/Utility/AdvanceFilter/AdvanceDateFilter/AdvanceDateFilter";
 import { DateFilter } from "@react3l/advanced-filters";
 import { formatDateTime } from "helpers/date-time";
+import { Moment } from "moment";
 /* end filter import */
 
 /* begin individual import */
@@ -84,7 +84,7 @@ function AppUserMaster() {
     } = masterService.usePreview<AppUser>
     (
         AppUser,
-        appUserRepository.get
+        appUserRepository.get,
     );
 
     const columns: ColumnProps<AppUser>[] = useMemo(
@@ -277,6 +277,11 @@ function AppUserMaster() {
                     
                     
                     
+                    {
+                        title: (<div className='text-center'>{translate('appUsers.used')}</div>),
+                        key: nameof(list[0].used),
+                        dataIndex: nameof(list[0].used),
+                    },
                     
                     
                     
@@ -325,8 +330,8 @@ function AppUserMaster() {
                                 nameof(list[0].organization),
                             ),
                         render(organization: Organization) {
-                            return organization //fill the render field after generate code;
-                        }
+                            return organization; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -341,8 +346,8 @@ function AppUserMaster() {
                                 nameof(list[0].position),
                             ),
                         render(position: Position) {
-                            return position //fill the render field after generate code;
-                        }
+                            return position; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -357,8 +362,8 @@ function AppUserMaster() {
                                 nameof(list[0].province),
                             ),
                         render(province: Province) {
-                            return province //fill the render field after generate code;
-                        }
+                            return province; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -373,8 +378,8 @@ function AppUserMaster() {
                                 nameof(list[0].sex),
                             ),
                         render(sex: Sex) {
-                            return sex //fill the render field after generate code;
-                        }
+                            return sex; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -389,8 +394,8 @@ function AppUserMaster() {
                                 nameof(list[0].status),
                             ),
                         render(status: Status) {
-                            return status //fill the render field after generate code;
-                        }
+                            return status; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -399,7 +404,8 @@ function AppUserMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, appUser: AppUser) {
                             return (
@@ -759,8 +765,7 @@ function AppUserMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

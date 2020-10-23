@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -75,7 +74,7 @@ function FieldMaster() {
     } = masterService.usePreview<Field>
     (
         Field,
-        fieldRepository.get
+        fieldRepository.get,
     );
 
     const columns: ColumnProps<Field>[] = useMemo(
@@ -108,6 +107,11 @@ function FieldMaster() {
                     
                     
                     
+                    {
+                        title: (<div className='text-center'>{translate('fields.isDeleted')}</div>),
+                        key: nameof(list[0].isDeleted),
+                        dataIndex: nameof(list[0].isDeleted),
+                    },
                     
                     
                     
@@ -122,8 +126,8 @@ function FieldMaster() {
                                 nameof(list[0].fieldType),
                             ),
                         render(fieldType: FieldType) {
-                            return fieldType //fill the render field after generate code;
-                        }
+                            return fieldType; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -138,8 +142,8 @@ function FieldMaster() {
                                 nameof(list[0].menu),
                             ),
                         render(menu: Menu) {
-                            return menu //fill the render field after generate code;
-                        }
+                            return menu; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -150,7 +154,8 @@ function FieldMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, field: Field) {
                             return (
@@ -290,8 +295,7 @@ function FieldMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

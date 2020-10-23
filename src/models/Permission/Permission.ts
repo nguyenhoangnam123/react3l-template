@@ -1,6 +1,7 @@
 import { Model } from '@react3l/react3l/core';
 import { Menu } from 'models/Menu';
 import { Role } from 'models/Role';
+import { PermissionActionMapping } from 'models/PermissionActionMapping';
 import { PermissionFieldMapping } from 'models/PermissionFieldMapping';
 
 export class Permission extends Model
@@ -22,6 +23,7 @@ export class Permission extends Model
 
     public role?: Role;
 
+    public permissionActionMappings?: PermissionActionMapping[];
 
 
     public permissionFieldMappings?: PermissionFieldMapping[];

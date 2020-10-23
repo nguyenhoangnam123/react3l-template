@@ -33,6 +33,7 @@ Repository.requestInterceptor = function(
 };
 
 Repository.responseInterceptor = function(
+
   response: AxiosResponse,
 ): AxiosResponse {
   if (typeof response.data === "object" && response.data !== null) {

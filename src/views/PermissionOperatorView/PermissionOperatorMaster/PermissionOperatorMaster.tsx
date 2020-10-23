@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InputSearch from "components/Utility/InputSearch/InputSearch";
 import Pagination from "components/Utility/Pagination/Pagination";
 import { renderMasterIndex } from "helpers/table";
-import { Moment } from "moment";
 import { useTranslation } from "react-i18next";
 import { Animate } from "react-show";
 import masterService from "services/pages/master-service";
@@ -74,7 +73,7 @@ function PermissionOperatorMaster() {
     } = masterService.usePreview<PermissionOperator>
     (
         PermissionOperator,
-        permissionOperatorRepository.get
+        permissionOperatorRepository.get,
     );
 
     const columns: ColumnProps<PermissionOperator>[] = useMemo(
@@ -130,8 +129,8 @@ function PermissionOperatorMaster() {
                                 nameof(list[0].fieldType),
                             ),
                         render(fieldType: FieldType) {
-                            return fieldType //fill the render field after generate code;
-                        }
+                            return fieldType; //fill the render field after generate code;
+                        },
                     },
                     
                     
@@ -140,7 +139,8 @@ function PermissionOperatorMaster() {
                         title: translate("general.actions.label"),
                         key: "action",
                         dataIndex: nameof(list[0].id),
-                        width: 200,
+                        fixed: "right",
+                        width: 150,
                         align: "center",
                         render(id: number, permissionOperator: PermissionOperator) {
                             return (
@@ -270,8 +270,7 @@ function PermissionOperatorMaster() {
                 </div>
                 <div className='page__master-table'>
                     <Card>
-                        <Table tableLayout='fixed'
-                                rowKey={nameof(list[0].id)}
+                        <Table rowKey={nameof(list[0].id)}
                                 columns={columns}
                                 pagination={false}
                                 dataSource={list}

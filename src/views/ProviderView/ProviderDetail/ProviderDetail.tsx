@@ -1,18 +1,22 @@
 /* begin general import */
-import React from "react";
+import React, { Dispatch, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import nameof from "ts-nameof.macro";
 import { Card, Col, Row, Tabs } from "antd";
 import FormItem from "components/Utility/FormItem/FormItem";
 import { formService } from "services/form-service";
 import detailService from "services/pages/detail-service";
+import { discussionRepository } from "repositories/discussion-repository";
+import AppFooter from "components/AppFooter/AppFooter";
+import {AppStoreContext, AppAction, AppState} from 'App';
+import ChatBox from 'components/Utility/ChatBox/ChatBox';
 /* end general import */
 
 /* begin individual import */
 import InputText from "components/Utility/Input/InputText/InputText";
-import Select from "components/Utility/Select/Select";
 import { Provider } from 'models/Provider';
-import { PROVIDER_MASTER_ROUTE } from 'config/route-consts'
+import { PROVIDER_MASTER_ROUTE } from 'config/route-consts';
+import { appUserRepository } from 'repositories/app-user-repository';
 import { providerRepository } from "repositories/provider-repository";
 /* end individual import */
 
@@ -21,45 +25,47 @@ const { TabPane } = Tabs;
 function ProviderDetail() {
     const [translate] = useTranslation();
 
+    const [state] = useContext<[AppState, Dispatch<AppAction>]>(AppStoreContext);
+
     const {
         model,
         isDetail,
         handleChangeSimpleField,
-        handleChangeObjectField,
         handleSave,
     } = detailService.useDetail<Provider>
     (
         Provider,
         providerRepository.get,
         providerRepository.save,
-        PROVIDER_MASTER_ROUTE
+        PROVIDER_MASTER_ROUTE,
     );
 
     return (
-        <div className='page page__detail'>
-            <div className='page__header d-flex align-items-center'>
-                <div className='page__title mr-1'>
-                    {translate("providers.detail.title")}
+        <>
+            <div className='page page__detail'>
+                <div className='page__header d-flex align-items-center'>
+                    <div className='page__title mr-1'>
+                        {translate("providers.detail.title")}
+                    </div>
+                    {isDetail ? (
+                    <div className='page__id'>{`- # ${model.id}`}</div>
+                    ) : (
+                    translate("general.actions.create")
+                    )}
                 </div>
-                {isDetail ? (
-                <div className='page__id'>{`- # ${model.id}`}</div>
-                ) : (
-                translate("general.actions.create")
-                )}
-            </div>
-            <div className='w-100 mt-3 page__detail-tabs'>
-                <Row className='d-flex'>
-                    <Col lg={18}>
-                    <Card className='mr-3'>
-                        <Tabs defaultActiveKey='1'>
-                            <TabPane tab={translate("general.detail.generalInfomation")}
-                                     key='1'>
-                                <Row>
-                                    
+                <div className='w-100 mt-3 page__detail-tabs'>
+                    <Row className='d-flex'>
+                        <Col lg={18}>
+                        <Card className='mr-3'>
+                            <Tabs defaultActiveKey='1'>
+                                <TabPane tab={translate("general.detail.generalInfomation")}
+                                        key='1'>
+                                    <Row>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.name")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.name))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.name))}
                                                 message={ model.errors?.name }>
                                             <InputText isMaterial={true}
                                                         value={ model.name }
@@ -67,12 +73,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.name))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.googleRedirectUri")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.googleRedirectUri))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.googleRedirectUri))}
                                                 message={ model.errors?.googleRedirectUri }>
                                             <InputText isMaterial={true}
                                                         value={ model.googleRedirectUri }
@@ -80,12 +86,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.googleRedirectUri))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.aDIP")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.aDIP))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.aDIP))}
                                                 message={ model.errors?.aDIP }>
                                             <InputText isMaterial={true}
                                                         value={ model.aDIP }
@@ -93,12 +99,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.aDIP))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.aDUsername")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.aDUsername))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.aDUsername))}
                                                 message={ model.errors?.aDUsername }>
                                             <InputText isMaterial={true}
                                                         value={ model.aDUsername }
@@ -106,12 +112,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.aDUsername))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.aDPassword")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.aDPassword))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.aDPassword))}
                                                 message={ model.errors?.aDPassword }>
                                             <InputText isMaterial={true}
                                                         value={ model.aDPassword }
@@ -119,12 +125,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.aDPassword))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.googleClient")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.googleClient))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.googleClient))}
                                                 message={ model.errors?.googleClient }>
                                             <InputText isMaterial={true}
                                                         value={ model.googleClient }
@@ -132,12 +138,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.googleClient))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.googleClientSecret")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.googleClientSecret))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.googleClientSecret))}
                                                 message={ model.errors?.googleClientSecret }>
                                             <InputText isMaterial={true}
                                                         value={ model.googleClientSecret }
@@ -145,12 +151,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.googleClientSecret))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.microsoftClient")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.microsoftClient))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.microsoftClient))}
                                                 message={ model.errors?.microsoftClient }>
                                             <InputText isMaterial={true}
                                                         value={ model.microsoftClient }
@@ -158,12 +164,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.microsoftClient))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.microsoftClientSecret")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.microsoftClientSecret))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.microsoftClientSecret))}
                                                 message={ model.errors?.microsoftClientSecret }>
                                             <InputText isMaterial={true}
                                                         value={ model.microsoftClientSecret }
@@ -171,12 +177,12 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.microsoftClientSecret))} />
                                         </FormItem>
-                                    </Col>
-                                    
+                                        </Col>
+                                        
 
-                                    <Col lg={6} className='pr-3'>
+                                        <Col lg={6} className='pr-3'>
                                         <FormItem label={translate("providers.microsoftRedirectUri")}
-                                                validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.microsoftRedirectUri))}
+                                                    validateStatus={formService.getValidationStatus<Provider>(model.errors, nameof(model.microsoftRedirectUri))}
                                                 message={ model.errors?.microsoftRedirectUri }>
                                             <InputText isMaterial={true}
                                                         value={ model.microsoftRedirectUri }
@@ -184,24 +190,36 @@ function ProviderDetail() {
                                                         className={"tio-account_square_outlined"}
                                                         onChange={handleChangeSimpleField(nameof(model.microsoftRedirectUri))} />
                                         </FormItem>
-                                    </Col>
-                                    
-                                </Row>
-                            </TabPane>
-                        </Tabs>
-                    </Card>
-                    </Col>
-                </Row>
+                                        </Col>
+                                        
+                                    </Row>
+                                </TabPane>
+                            </Tabs>
+                        </Card>
+                        </Col>
+                        <Col lg={6}>
+                            <ChatBox getMessages={discussionRepository.list}
+                                    countMessages={discussionRepository.count}
+                                    postMessage={discussionRepository.create}
+                                    deleteMessage={discussionRepository.delete}
+                                    attachFile={discussionRepository.import}
+                                    suggestList={appUserRepository.list}
+                                    discussionId={model.rowId}
+                                    userInfo={state.user} />
+                        </Col>
+                    </Row>
+                </div>
+                <div className='w-100 mt-3 page__detail-tabs'>
+                    <Row className='mt-3 mb-5'>
+                        <button className='btn component__btn-primary pr-4 mb-5'
+                                onClick={handleSave()}>
+                            {translate("providers.button.saveModel")}
+                        </button>
+                    </Row>
+                </div>
             </div>
-            <div className='w-100 mt-3 page__detail-tabs'>
-                <Row className='mt-3 mb-5'>
-                    <button className='btn component__btn-primary pr-4 mb-5'
-                            onClick={handleSave()}>
-                        {translate("providers.button.saveModel")}
-                    </button>
-                </Row>
-            </div>
-        </div>
+            <AppFooter></AppFooter>
+        </>
     );
 }
 
